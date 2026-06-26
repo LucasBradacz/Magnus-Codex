@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @forma %>
+
+<div>
+  <%= link_to "Edit this forma", edit_forma_path(@forma) %> |
+  <%= link_to "Back to formas", formas_path %>
+
+  <%= button_to "Destroy this forma", @forma, method: :delete %>
+</div>

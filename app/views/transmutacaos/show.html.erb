@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @transmutacao %>
+
+<div>
+  <%= link_to "Edit this transmutacao", edit_transmutacao_path(@transmutacao) %> |
+  <%= link_to "Back to transmutacaos", transmutacaos_path %>
+
+  <%= button_to "Destroy this transmutacao", @transmutacao, method: :delete %>
+</div>

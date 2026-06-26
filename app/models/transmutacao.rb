@@ -1,0 +1,2 @@
+class Transmutacao < ApplicationRecord
+end

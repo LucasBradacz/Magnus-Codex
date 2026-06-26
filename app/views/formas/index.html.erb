@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Formas" %>
+
+<h1>Formas</h1>
+
+<div id="formas">
+  <% @formas.each do |forma| %>
+    <%= render forma %>
+    <p>
+      <%= link_to "Show this forma", forma %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New forma", new_forma_path %>

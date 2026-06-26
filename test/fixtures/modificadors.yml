@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  descricao: MyText
+  operacao_custo: MyString
+  valor_custo: 9.99
+  operacao_poder: MyString
+  valor_poder: 9.99
+  efeito: MyText
+
+two:
+  nome: MyString
+  descricao: MyText
+  operacao_custo: MyString
+  valor_custo: 9.99
+  operacao_poder: MyString
+  valor_poder: 9.99
+  efeito: MyText

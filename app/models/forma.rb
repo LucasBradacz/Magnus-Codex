@@ -1,0 +1,2 @@
+class Forma < ApplicationRecord
+end

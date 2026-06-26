@@ -1,0 +1,52 @@
+<%= form_with(model: forma) do |form| %>
+  <% if forma.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(forma.errors.count, "error") %> prohibited this forma from being saved:</h2>
+
+      <ul>
+        <% forma.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :descricao, style: "display: block" %>
+    <%= form.textarea :descricao %>
+  </div>
+
+  <div>
+    <%= form.label :alcance, style: "display: block" %>
+    <%= form.text_field :alcance %>
+  </div>
+
+  <div>
+    <%= form.label :tamanho, style: "display: block" %>
+    <%= form.text_field :tamanho %>
+  </div>
+
+  <div>
+    <%= form.label :duracao, style: "display: block" %>
+    <%= form.text_field :duracao %>
+  </div>
+
+  <div>
+    <%= form.label :custo_base, style: "display: block" %>
+    <%= form.number_field :custo_base %>
+  </div>
+
+  <div>
+    <%= form.label :poder_base, style: "display: block" %>
+    <%= form.number_field :poder_base %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

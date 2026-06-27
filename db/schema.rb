@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_26_210241) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_27_031756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_26_210241) do
     t.datetime "updated_at", null: false
     t.decimal "valor_custo"
     t.decimal "valor_poder"
+  end
+
+  create_table "personagens", force: :cascade do |t|
+    t.integer "agilidade"
+    t.datetime "created_at", null: false
+    t.decimal "dinheiro"
+    t.integer "dominio"
+    t.integer "estabilidade_atual"
+    t.integer "mana_atual"
+    t.integer "nivel"
+    t.string "nome"
+    t.integer "percepcao"
+    t.string "player"
+    t.integer "potencia"
+    t.integer "resistencia"
+    t.datetime "updated_at", null: false
+    t.integer "vida_atual"
   end
 
   create_table "transmutacaos", force: :cascade do |t|

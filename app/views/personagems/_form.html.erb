@@ -1,0 +1,78 @@
+<%= form_with(model: personagem) do |form| %>
+  <% if personagem.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(personagem.errors.count, "error") %> erros:</h2>
+      <ul>
+        <% personagem.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, "Nome:" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :player, "Player:" %>
+    <%= form.text_field :player %>
+
+    <%= form.label :nivel, "Nível:" %>
+    <%= form.number_field :nivel %>
+  </div>
+
+  <h3>Atributos</h3>
+
+  <div>
+    <%= form.label :agilidade, "Agilidade:" %>
+    <%= form.number_field :agilidade %>
+  </div>
+
+  <div>
+    <%= form.label :dominio, "Domínio:" %>
+    <%= form.number_field :dominio %>
+  </div>
+
+  <div>
+    <%= form.label :percepcao, "Percepção:" %>
+    <%= form.number_field :percepcao %>
+  </div>
+
+  <div>
+    <%= form.label :potencia, "Potência:" %>
+    <%= form.number_field :potencia %>
+  </div>
+
+  <div>
+    <%= form.label :resistencia, "Resistência:" %>
+    <%= form.number_field :resistencia %>
+  </div>
+
+  <h3>Status</h3>
+
+  <div>
+    <%= form.label :vida_atual, "Vida Atual:" %>
+    <%= form.number_field :vida_atual %>
+  </div>
+
+  <div>
+    <%= form.label :mana_atual, "Mana Atual:" %>
+    <%= form.number_field :mana_atual %>
+  </div>
+
+  <div>
+    <%= form.label :estabilidade_atual, "Estabilidade Atual:" %>
+    <%= form.number_field :estabilidade_atual %>
+  </div>
+
+  <div>
+    <%= form.label :dinheiro, "Dinheiro:" %>
+    <%= form.number_field :dinheiro, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar" %>
+  </div>
+<% end %>

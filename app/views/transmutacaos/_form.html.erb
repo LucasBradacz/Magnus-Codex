@@ -1,8 +1,7 @@
 <%= form_with(model: transmutacao) do |form| %>
   <% if transmutacao.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(transmutacao.errors.count, "error") %> prohibited this transmutacao from being saved:</h2>
-
+      <h2><%= pluralize(transmutacao.errors.count, "erro") %> encontrados:</h2>
       <ul>
         <% transmutacao.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -12,26 +11,41 @@
   <% end %>
 
   <div>
-    <%= form.label :nome, style: "display: block" %>
+    <%= form.label :nome, "Nome:" %>
     <%= form.text_field :nome %>
   </div>
 
   <div>
-    <%= form.label :descricao, style: "display: block" %>
-    <%= form.textarea :descricao %>
+    <%= form.label :descricao, "Descrição:" %>
+    <%= form.text_area :descricao %>
   </div>
 
   <div>
-    <%= form.label :dado_poder, style: "display: block" %>
-    <%= form.text_field :dado_poder %>
+    <%= form.label :dado_poder, "Dado de Poder:" %>
+    <%= form.select :dado_poder, ["d4", "d6", "d8", "d10", "d12", "d20"] %>
   </div>
 
   <div>
-    <%= form.label :custo_multiplicador, style: "display: block" %>
-    <%= form.text_field :custo_multiplicador %>
+    <%= form.label :custo_multiplicador, "Multiplicador de Custo:" %>
+    <%= form.number_field :custo_multiplicador, step: 0.1 %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :complexa, "É uma carta complexa (Upgrade)?" %>
+    <%= form.check_box :complexa %>
+  </div>
+
+  <div>
+    <%= form.label :upgrade_ids, "Upgrades disponíveis:" %>
+    <%= form.collection_check_boxes :upgrade_ids, Transmutacao.where(complexa: true).where.not(id: transmutacao.id), :id, :nome do |b| %>
+      <div>
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar" %>
   </div>
 <% end %>

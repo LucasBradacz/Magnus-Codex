@@ -1,16 +1,55 @@
-<p style="color: green"><%= notice %></p>
+<h1>Transmutacoes</h1>
 
-<% content_for :title, "Transmutacaos" %>
+<h2>Basicas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Dado de Poder</th>
+      <th>Multiplicador de Custo</th>
+      <th>Acoes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transmutacaos_basicas.each do |transmutacao| %>
+      <tr>
+        <td><%= transmutacao.nome %></td>
+        <td><%= transmutacao.dado_poder %></td>
+        <td><%= transmutacao.custo_multiplicador %></td>
+        <td>
+          <%= link_to "Ver", transmutacao %>
+          <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
+          <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<h1>Transmutacaos</h1>
+<h2>Complexas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Dado de Poder</th>
+      <th>Multiplicador de Custo</th>
+      <th>Acoes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transmutacaos_complexas.each do |transmutacao| %>
+      <tr>
+        <td><%= transmutacao.nome %></td>
+        <td><%= transmutacao.dado_poder %></td>
+        <td><%= transmutacao.custo_multiplicador %></td>
+        <td>
+          <%= link_to "Ver", transmutacao %>
+          <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
+          <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<div id="transmutacaos">
-  <% @transmutacaos.each do |transmutacao| %>
-    <%= render transmutacao %>
-    <p>
-      <%= link_to "Show this transmutacao", transmutacao %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New transmutacao", new_transmutacao_path %>
+<%= link_to "Nova Transmutacao", new_transmutacao_path %>

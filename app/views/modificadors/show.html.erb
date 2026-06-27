@@ -1,10 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @modificador %>
+<h1><%= @modificador.nome %></h1>
 
 <div>
-  <%= link_to "Edit this modificador", edit_modificador_path(@modificador) %> |
-  <%= link_to "Back to modificadors", modificadors_path %>
-
-  <%= button_to "Destroy this modificador", @modificador, method: :delete %>
+  <p><strong>Tipo:</strong> <%= @modificador.complexa? ? "Complexo" : "Basico" %></p>
+  <p><strong>Descricao:</strong> <%= @modificador.descricao %></p>
+  <p><strong>Operacao de Custo:</strong> <%= @modificador.operacao_custo %> <%= @modificador.valor_custo %></p>
+  <% if @modificador.operacao_poder.present? %>
+    <p><strong>Operacao de Poder:</strong> <%= @modificador.operacao_poder %> <%= @modificador.valor_poder %></p>
+  <% end %>
+  <p><strong>Efeito:</strong> <%= @modificador.efeito %></p>
 </div>
+
+<% if @modificador.upgrades.any? %>
+  <h2>Upgrades disponiveis</h2>
+  <ul>
+    <% @modificador.upgrades.each do |upgrade| %>
+      <li><%= link_to upgrade.nome, upgrade %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @modificador.modificadors_origem.any? %>
+  <h2>Upgrade de</h2>
+  <ul>
+    <% @modificador.modificadors_origem.each do |origem| %>
+      <li><%= link_to origem.nome, origem %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "Editar", edit_modificador_path(@modificador) %>

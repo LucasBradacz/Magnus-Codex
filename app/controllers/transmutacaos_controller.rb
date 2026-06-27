@@ -3,7 +3,8 @@ class TransmutacaosController < ApplicationController
 
   # GET /transmutacaos or /transmutacaos.json
   def index
-    @transmutacaos = Transmutacao.all
+    @transmutacaos_basicas = Transmutacao.where(complexa: false)
+    @transmutacaos_complexas = Transmutacao.where(complexa: true)
   end
 
   # GET /transmutacaos/1 or /transmutacaos/1.json
@@ -65,6 +66,6 @@ class TransmutacaosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transmutacao_params
-      params.expect(transmutacao: [ :nome, :descricao, :dado_poder, :custo_multiplicador ])
+      params.require(:transmutacao).permit(:nome, :descricao, :dado_poder, :custo_multiplicador, :complexa, upgrade_ids: [])
     end
 end

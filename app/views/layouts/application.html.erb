@@ -24,6 +24,10 @@
   </head>
 
   <body>
+    <% if action_name != 'index' %>
+    <%= link_to "Voltar", :back %> | 
+    <% end %>
+    <%= link_to "Home", root_path %>
     <%= yield %>
   </body>
 </html>

@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_27_031756) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_27_155832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "forma_upgrades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "forma_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "upgrade_id", null: false
+    t.index ["forma_id"], name: "index_forma_upgrades_on_forma_id"
+    t.index ["upgrade_id"], name: "index_forma_upgrades_on_upgrade_id"
+  end
+
   create_table "formas", force: :cascade do |t|
     t.string "alcance"
+    t.boolean "complexa", default: false, null: false
     t.datetime "created_at", null: false
     t.integer "custo_base"
     t.text "descricao"
@@ -26,7 +36,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_031756) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "modificador_upgrades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "modificador_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "upgrade_id", null: false
+    t.index ["modificador_id"], name: "index_modificador_upgrades_on_modificador_id"
+    t.index ["upgrade_id"], name: "index_modificador_upgrades_on_upgrade_id"
+  end
+
   create_table "modificadors", force: :cascade do |t|
+    t.boolean "complexa", default: false, null: false
     t.datetime "created_at", null: false
     t.text "descricao"
     t.text "efeito"
@@ -55,7 +75,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_031756) do
     t.integer "vida_atual"
   end
 
+  create_table "transmutacao_upgrades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "transmutacao_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "upgrade_id", null: false
+    t.index ["transmutacao_id"], name: "index_transmutacao_upgrades_on_transmutacao_id"
+    t.index ["upgrade_id"], name: "index_transmutacao_upgrades_on_upgrade_id"
+  end
+
   create_table "transmutacaos", force: :cascade do |t|
+    t.boolean "complexa", default: false, null: false
     t.datetime "created_at", null: false
     t.decimal "custo_multiplicador"
     t.string "dado_poder"
@@ -63,4 +93,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_031756) do
     t.string "nome"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "forma_upgrades", "formas"
+  add_foreign_key "forma_upgrades", "formas", column: "upgrade_id"
+  add_foreign_key "modificador_upgrades", "modificadors"
+  add_foreign_key "modificador_upgrades", "modificadors", column: "upgrade_id"
+  add_foreign_key "transmutacao_upgrades", "transmutacaos"
+  add_foreign_key "transmutacao_upgrades", "transmutacaos", column: "upgrade_id"
 end

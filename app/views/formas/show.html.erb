@@ -1,10 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @forma %>
+<h1><%= @forma.nome %></h1>
 
 <div>
-  <%= link_to "Edit this forma", edit_forma_path(@forma) %> |
-  <%= link_to "Back to formas", formas_path %>
-
-  <%= button_to "Destroy this forma", @forma, method: :delete %>
+  <p><strong>Tipo:</strong> <%= @forma.complexa? ? "Complexa" : "Basica" %></p>
+  <p><strong>Descricao:</strong> <%= @forma.descricao %></p>
+  <p><strong>Alcance:</strong> <%= @forma.alcance %></p>
+  <p><strong>Tamanho:</strong> <%= @forma.tamanho %></p>
+  <p><strong>Duracao:</strong> <%= @forma.duracao %></p>
+  <p><strong>Custo:</strong> <%= @forma.custo_base %></p>
+  <p><strong>Poder:</strong> <%= @forma.poder_base %></p>
 </div>
+
+<% if @forma.upgrades.any? %>
+  <h2>Upgrades disponiveis</h2>
+  <ul>
+    <% @forma.upgrades.each do |upgrade| %>
+      <li><%= link_to upgrade.nome, upgrade %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @forma.formas_origem.any? %>
+  <h2>Upgrade de</h2>
+  <ul>
+    <% @forma.formas_origem.each do |origem| %>
+      <li><%= link_to origem.nome, origem %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "Editar", edit_forma_path(@forma) %>

@@ -3,7 +3,8 @@ class ModificadorsController < ApplicationController
 
   # GET /modificadors or /modificadors.json
   def index
-    @modificadors = Modificador.all
+    @modificadors_basicos = Modificador.where(complexa: false)
+    @modificadors_complexos = Modificador.where(complexa: true)
   end
 
   # GET /modificadors/1 or /modificadors/1.json
@@ -65,6 +66,6 @@ class ModificadorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def modificador_params
-      params.expect(modificador: [ :nome, :descricao, :operacao_custo, :valor_custo, :operacao_poder, :valor_poder, :efeito ])
+     params.require(:modificador).permit(:nome, :descricao, :operacao_custo, :valor_custo, :operacao_poder, :valor_poder, :efeito, :complexa, upgrade_ids: [])
     end
 end

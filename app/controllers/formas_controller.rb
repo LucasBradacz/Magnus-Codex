@@ -3,7 +3,8 @@ class FormasController < ApplicationController
 
   # GET /formas or /formas.json
   def index
-    @formas = Forma.all
+   @formas_basicas = Forma.where(complexa: false)
+   @formas_complexas = Forma.where(complexa: true)
   end
 
   # GET /formas/1 or /formas/1.json
@@ -65,6 +66,6 @@ class FormasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def forma_params
-      params.expect(forma: [ :nome, :descricao, :alcance, :tamanho, :duracao, :custo_base, :poder_base ])
+      params.require(:forma).permit(:nome, :descricao, :alcance, :tamanho, :duracao, :custo_base, :poder_base, :complexa, upgrade_ids: [])
     end
 end

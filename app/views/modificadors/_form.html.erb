@@ -1,8 +1,7 @@
 <%= form_with(model: modificador) do |form| %>
   <% if modificador.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(modificador.errors.count, "error") %> prohibited this modificador from being saved:</h2>
-
+      <h2><%= pluralize(modificador.errors.count, "erro") %> encontrados:</h2>
       <ul>
         <% modificador.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -12,41 +11,56 @@
   <% end %>
 
   <div>
-    <%= form.label :nome, style: "display: block" %>
+    <%= form.label :nome, "Nome:" %>
     <%= form.text_field :nome %>
   </div>
 
   <div>
-    <%= form.label :descricao, style: "display: block" %>
-    <%= form.textarea :descricao %>
+    <%= form.label :descricao, "Descricao:" %>
+    <%= form.text_area :descricao %>
   </div>
 
   <div>
-    <%= form.label :operacao_custo, style: "display: block" %>
-    <%= form.text_field :operacao_custo %>
+    <%= form.label :operacao_custo, "Operacao de Custo:" %>
+    <%= form.select :operacao_custo, [["Soma", "soma"], ["Multiplicacao", "multiplicacao"], ["Divisao", "divisao"], ["Subtracao", "subtracao"]] %>
   </div>
 
   <div>
-    <%= form.label :valor_custo, style: "display: block" %>
-    <%= form.text_field :valor_custo %>
+    <%= form.label :valor_custo, "Valor do Custo:" %>
+    <%= form.number_field :valor_custo, step: 0.1 %>
   </div>
 
   <div>
-    <%= form.label :operacao_poder, style: "display: block" %>
-    <%= form.text_field :operacao_poder %>
+    <%= form.label :operacao_poder, "Operacao de Poder:" %>
+    <%= form.select :operacao_poder, [["Nenhuma", ""], ["Soma", "soma"], ["Multiplicacao", "multiplicacao"], ["Divisao", "divisao"], ["Subtracao", "subtracao"]], include_blank: true %>
   </div>
 
   <div>
-    <%= form.label :valor_poder, style: "display: block" %>
-    <%= form.text_field :valor_poder %>
+    <%= form.label :valor_poder, "Valor do Poder:" %>
+    <%= form.number_field :valor_poder, step: 0.1 %>
   </div>
 
   <div>
-    <%= form.label :efeito, style: "display: block" %>
-    <%= form.textarea :efeito %>
+    <%= form.label :efeito, "Efeito:" %>
+    <%= form.text_area :efeito %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :complexa, "Carta complexa (Upgrade)?" %>
+    <%= form.check_box :complexa %>
+  </div>
+
+  <div>
+    <%= form.label :upgrade_ids, "Upgrades disponiveis:" %>
+    <%= form.collection_check_boxes :upgrade_ids, Modificador.where(complexa: true).where.not(id: modificador.id), :id, :nome do |b| %>
+      <div>
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar" %>
   </div>
 <% end %>

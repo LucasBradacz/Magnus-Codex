@@ -1,7 +1,12 @@
 class Modificador < ApplicationRecord
-  has_many :modificador_upgrades, foreign_key: :modificador_id
-  has_many :upgrades, through: :modificador_upgrades, source: :upgrade
-
-  has_many :modificador_upgrades_as_upgrade, class_name: 'ModificadorUpgrade', foreign_key: :upgrade_id
-  has_many :modificadors_origem, through: :modificador_upgrades_as_upgrade, source: :modificador
+  def disciplina_nome
+    case disciplina
+    when "superior" then "Superior (Vida/Cura)"
+    when "esquerda_superior" then "Esquerda Superior (Mente)"
+    when "direita_superior" then "Direita Superior (Melhoria)"
+    when "esquerda_inferior" then "Esquerda Inferior (Contencao)"
+    when "direita_inferior" then "Direita Inferior (Destruicao)"
+    else "Basica"
+    end
+  end
 end

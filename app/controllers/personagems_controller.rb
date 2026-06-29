@@ -65,6 +65,6 @@ class PersonagemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def personagem_params
-   params.require(:personagem).permit(:nome, :player, :nivel, :agilidade, :dominio, :percepcao, :potencia, :resistencia, :vida_atual, :mana_atual, :estabilidade_atual, :dinheiro)
+    params.require(:personagem).permit(:nome, :player, :nivel, :agilidade, :dominio, :percepcao, :potencia, :resistencia, :vida_atual, :mana_atual, :estabilidade_atual, :dinheiro, :nivel_superior, :nivel_esquerda_superior, :nivel_direita_superior, :nivel_esquerda_inferior, :nivel_direita_inferior)
   end
 end

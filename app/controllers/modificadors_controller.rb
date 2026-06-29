@@ -3,8 +3,8 @@ class ModificadorsController < ApplicationController
 
   # GET /modificadors or /modificadors.json
   def index
-    @modificadors_basicos = Modificador.where(complexa: false)
-    @modificadors_complexos = Modificador.where(complexa: true)
+    @modificadors_basicos = Modificador.where(basica: true)
+    @modificadors_disciplina = Modificador.where(basica: false)
   end
 
   # GET /modificadors/1 or /modificadors/1.json
@@ -59,13 +59,14 @@ class ModificadorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_modificador
-      @modificador = Modificador.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def modificador_params
-     params.require(:modificador).permit(:nome, :descricao, :operacao_custo, :valor_custo, :operacao_poder, :valor_poder, :efeito, :complexa, upgrade_ids: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_modificador
+    @modificador = Modificador.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def modificador_params
+    params.require(:modificador).permit(:nome, :descricao, :operacao_custo, :valor_custo, :operacao_poder, :valor_poder, :efeito, :basica, :disciplina, :nivel_minimo)
+  end
 end

@@ -3,8 +3,8 @@ class TransmutacaosController < ApplicationController
 
   # GET /transmutacaos or /transmutacaos.json
   def index
-    @transmutacaos_basicas = Transmutacao.where(complexa: false)
-    @transmutacaos_complexas = Transmutacao.where(complexa: true)
+    @transmutacaos_basicas = Transmutacao.where(basica: true)
+    @transmutacaos_disciplina = Transmutacao.where(basica: false)
   end
 
   # GET /transmutacaos/1 or /transmutacaos/1.json
@@ -59,13 +59,14 @@ class TransmutacaosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transmutacao
-      @transmutacao = Transmutacao.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def transmutacao_params
-      params.require(:transmutacao).permit(:nome, :descricao, :dado_poder, :custo_multiplicador, :complexa, upgrade_ids: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transmutacao
+    @transmutacao = Transmutacao.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def transmutacao_params
+    params.require(:transmutacao).permit(:nome, :descricao, :dado_poder, :custo_multiplicador, :basica, :disciplina, :nivel_minimo)
+  end
 end

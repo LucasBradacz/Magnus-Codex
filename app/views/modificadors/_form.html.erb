@@ -46,18 +46,25 @@
   </div>
 
   <div>
-    <%= form.label :complexa, "Carta complexa (Upgrade)?" %>
-    <%= form.check_box :complexa %>
+    <%= form.label :basica, "Carta Basica?" %>
+    <%= form.check_box :basica %>
   </div>
 
   <div>
-    <%= form.label :upgrade_ids, "Upgrades disponiveis:" %>
-    <%= form.collection_check_boxes :upgrade_ids, Modificador.where(complexa: true).where.not(id: modificador.id), :id, :nome do |b| %>
-      <div>
-        <%= b.check_box %>
-        <%= b.label %>
-      </div>
-    <% end %>
+    <%= form.label :disciplina, "Disciplina:" %>
+    <%= form.select :disciplina, [
+      ["Nenhuma (Basica)", ""],
+      ["Superior (Vida/Cura)", "superior"],
+      ["Esquerda Superior (Mente)", "esquerda_superior"],
+      ["Direita Superior (Melhoria)", "direita_superior"],
+      ["Esquerda Inferior (Contencao)", "esquerda_inferior"],
+      ["Direita Inferior (Destruicao)", "direita_inferior"]
+    ], include_blank: false %>
+  </div>
+
+  <div>
+    <%= form.label :nivel_minimo, "Nivel Minimo na Disciplina:" %>
+    <%= form.number_field :nivel_minimo %>
   </div>
 
   <div>

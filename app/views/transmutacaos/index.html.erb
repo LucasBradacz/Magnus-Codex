@@ -3,52 +3,56 @@
 <h2>Basicas</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Dado de Poder</th>
-      <th>Multiplicador de Custo</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Dado de Poder</th>
+    <th>Multiplicador de Custo</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @transmutacaos_basicas.each do |transmutacao| %>
-      <tr>
-        <td><%= transmutacao.nome %></td>
-        <td><%= transmutacao.dado_poder %></td>
-        <td><%= transmutacao.custo_multiplicador %></td>
-        <td>
-          <%= link_to "Ver", transmutacao %>
-          <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
-          <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @transmutacaos_basicas.each do |transmutacao| %>
+    <tr>
+      <td><%= transmutacao.nome %></td>
+      <td><%= transmutacao.dado_poder %></td>
+      <td><%= transmutacao.custo_multiplicador %></td>
+      <td>
+        <%= link_to "Ver", transmutacao %>
+        <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
+        <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
-<h2>Complexas</h2>
+<h2>Disciplinas</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Dado de Poder</th>
-      <th>Multiplicador de Custo</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Disciplina</th>
+    <th>Nivel Minimo</th>
+    <th>Dado de Poder</th>
+    <th>Multiplicador de Custo</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @transmutacaos_complexas.each do |transmutacao| %>
-      <tr>
-        <td><%= transmutacao.nome %></td>
-        <td><%= transmutacao.dado_poder %></td>
-        <td><%= transmutacao.custo_multiplicador %></td>
-        <td>
-          <%= link_to "Ver", transmutacao %>
-          <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
-          <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @transmutacaos_disciplina.each do |transmutacao| %>
+    <tr>
+      <td><%= transmutacao.nome %></td>
+      <td><%= transmutacao.disciplina_nome %></td>
+      <td><%= transmutacao.nivel_minimo %></td>
+      <td><%= transmutacao.dado_poder %></td>
+      <td><%= transmutacao.custo_multiplicador %></td>
+      <td>
+        <%= link_to "Ver", transmutacao %>
+        <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
+        <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

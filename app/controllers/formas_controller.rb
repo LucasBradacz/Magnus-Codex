@@ -3,8 +3,8 @@ class FormasController < ApplicationController
 
   # GET /formas or /formas.json
   def index
-   @formas_basicas = Forma.where(complexa: false)
-   @formas_complexas = Forma.where(complexa: true)
+    @formas_basicas = Forma.where(basica: true)
+    @formas_disciplina = Forma.where(basica: false)
   end
 
   # GET /formas/1 or /formas/1.json
@@ -59,13 +59,14 @@ class FormasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_forma
-      @forma = Forma.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def forma_params
-      params.require(:forma).permit(:nome, :descricao, :alcance, :tamanho, :duracao, :custo_base, :poder_base, :complexa, upgrade_ids: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_forma
+    @forma = Forma.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def forma_params
+    params.require(:forma).permit(:nome, :descricao, :alcance, :tamanho, :duracao, :custo_base, :poder_base, :basica, :disciplina, :nivel_minimo)
+  end
 end

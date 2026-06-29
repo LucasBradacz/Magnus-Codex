@@ -3,60 +3,56 @@
 <h2>Basicos</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Operacao de Custo</th>
-      <th>Valor do Custo</th>
-      <th>Operacao de Poder</th>
-      <th>Valor do Poder</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Operacao de Custo</th>
+    <th>Valor do Custo</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @modificadors_basicos.each do |modificador| %>
-      <tr>
-        <td><%= modificador.nome %></td>
-        <td><%= modificador.operacao_custo %></td>
-        <td><%= modificador.valor_custo %></td>
-        <td><%= modificador.operacao_poder %></td>
-        <td><%= modificador.valor_poder %></td>
-        <td>
-          <%= link_to "Ver", modificador %>
-          <%= link_to "Editar", edit_modificador_path(modificador) %>
-          <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @modificadors_basicos.each do |modificador| %>
+    <tr>
+      <td><%= modificador.nome %></td>
+      <td><%= modificador.operacao_custo %></td>
+      <td><%= modificador.valor_custo %></td>
+      <td>
+        <%= link_to "Ver", modificador %>
+        <%= link_to "Editar", edit_modificador_path(modificador) %>
+        <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
-<h2>Complexos</h2>
+<h2>Disciplinas</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Operacao de Custo</th>
-      <th>Valor do Custo</th>
-      <th>Operacao de Poder</th>
-      <th>Valor do Poder</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Disciplina</th>
+    <th>Nivel Minimo</th>
+    <th>Operacao de Custo</th>
+    <th>Valor do Custo</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @modificadors_complexos.each do |modificador| %>
-      <tr>
-        <td><%= modificador.nome %></td>
-        <td><%= modificador.operacao_custo %></td>
-        <td><%= modificador.valor_custo %></td>
-        <td><%= modificador.operacao_poder %></td>
-        <td><%= modificador.valor_poder %></td>
-        <td>
-          <%= link_to "Ver", modificador %>
-          <%= link_to "Editar", edit_modificador_path(modificador) %>
-          <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @modificadors_disciplina.each do |modificador| %>
+    <tr>
+      <td><%= modificador.nome %></td>
+      <td><%= modificador.disciplina_nome %></td>
+      <td><%= modificador.nivel_minimo %></td>
+      <td><%= modificador.operacao_custo %></td>
+      <td><%= modificador.valor_custo %></td>
+      <td>
+        <%= link_to "Ver", modificador %>
+        <%= link_to "Editar", edit_modificador_path(modificador) %>
+        <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

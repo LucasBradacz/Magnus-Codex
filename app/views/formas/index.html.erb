@@ -3,60 +3,60 @@
 <h2>Basicas</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Custo</th>
-      <th>Poder</th>
-      <th>Alcance</th>
-      <th>Tamanho</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Custo</th>
+    <th>Poder</th>
+    <th>Alcance</th>
+    <th>Tamanho</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @formas_basicas.each do |forma| %>
-      <tr>
-        <td><%= forma.nome %></td>
-        <td><%= forma.custo_base %></td>
-        <td><%= forma.poder_base %></td>
-        <td><%= forma.alcance %></td>
-        <td><%= forma.tamanho %></td>
-        <td>
-          <%= link_to "Ver", forma %>
-          <%= link_to "Editar", edit_forma_path(forma) %>
-          <%= link_to "Apagar", forma, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @formas_basicas.each do |forma| %>
+    <tr>
+      <td><%= forma.nome %></td>
+      <td><%= forma.custo_base %></td>
+      <td><%= forma.poder_base %></td>
+      <td><%= forma.alcance %></td>
+      <td><%= forma.tamanho %></td>
+      <td>
+        <%= link_to "Ver", forma %>
+        <%= link_to "Editar", edit_forma_path(forma) %>
+        <%= link_to "Apagar", forma, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
-<h2>Complexas</h2>
+<h2>Disciplinas</h2>
 <table>
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Custo</th>
-      <th>Poder</th>
-      <th>Alcance</th>
-      <th>Tamanho</th>
-      <th>Acoes</th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th>Disciplina</th>
+    <th>Nivel Minimo</th>
+    <th>Custo</th>
+    <th>Poder</th>
+    <th>Acoes</th>
+  </tr>
   </thead>
   <tbody>
-    <% @formas_complexas.each do |forma| %>
-      <tr>
-        <td><%= forma.nome %></td>
-        <td><%= forma.custo_base %></td>
-        <td><%= forma.poder_base %></td>
-        <td><%= forma.alcance %></td>
-        <td><%= forma.tamanho %></td>
-        <td>
-          <%= link_to "Ver", forma %>
-          <%= link_to "Editar", edit_forma_path(forma) %>
-          <%= link_to "Apagar", forma, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
-    <% end %>
+  <% @formas_disciplina.each do |forma| %>
+    <tr>
+      <td><%= forma.nome %></td>
+      <td><%= forma.disciplina_nome %></td>
+      <td><%= forma.nivel_minimo %></td>
+      <td><%= forma.custo_base %></td>
+      <td><%= forma.poder_base %></td>
+      <td>
+        <%= link_to "Ver", forma %>
+        <%= link_to "Editar", edit_forma_path(forma) %>
+        <%= link_to "Apagar", forma, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

@@ -1,16 +1,28 @@
-<p style="color: green"><%= notice %></p>
+<h1>Personagens</h1>
 
-<% content_for :title, "Personagems" %>
-
-<h1>Personagems</h1>
-
-<div id="personagems">
+<table>
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>Player</th>
+    <th>Nivel</th>
+    <th>Acoes</th>
+  </tr>
+  </thead>
+  <tbody>
   <% @personagems.each do |personagem| %>
-    <%= render personagem %>
-    <p>
-      <%= link_to "Show this personagem", personagem %>
-    </p>
+    <tr>
+      <td><%= personagem.nome %></td>
+      <td><%= personagem.player %></td>
+      <td><%= personagem.nivel %></td>
+      <td>
+        <%= link_to "Ver", personagem %>
+        <%= link_to "Editar", edit_personagem_path(personagem) %>
+        <%= link_to "Deletar", personagem, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </td>
+    </tr>
   <% end %>
-</div>
+  </tbody>
+</table>
 
-<%= link_to "New personagem", new_personagem_path %>
+<%= link_to "Novo Personagem", new_personagem_path %>

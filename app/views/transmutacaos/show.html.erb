@@ -1,14 +1,14 @@
 <h1><%= @transmutacao.nome %></h1>
 
 <div>
-  <p><strong>Tipo:</strong> <%= @transmutacao.complexa? ? "Complexa" : "Basica" %></p>
-  <p><strong>Descricao:</strong> <%= @transmutacao.descricao %></p>
+  <p><strong>Tipo:</strong> <%= @transmutacao.complexa? ? "Complexa" : "Básica" %></p>
+  <p><strong>Descrição:</strong> <%= @transmutacao.descricao %></p>
   <p><strong>Dado de Poder:</strong> <%= @transmutacao.dado_poder %></p>
   <p><strong>Multiplicador de Custo:</strong> x<%= @transmutacao.custo_multiplicador %></p>
 </div>
 
 <% if @transmutacao.upgrades.any? %>
-  <h2>Upgrades disponiveis</h2>
+  <h2>Upgrades disponíveis</h2>
   <ul>
     <% @transmutacao.upgrades.each do |upgrade| %>
       <li><%= link_to upgrade.nome, upgrade %></li>

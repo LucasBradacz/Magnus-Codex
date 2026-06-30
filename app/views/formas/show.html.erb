@@ -1,17 +1,17 @@
 <h1><%= @forma.nome %></h1>
 
 <div>
-  <p><strong>Tipo:</strong> <%= @forma.complexa? ? "Complexa" : "Basica" %></p>
-  <p><strong>Descricao:</strong> <%= @forma.descricao %></p>
+  <p><strong>Tipo:</strong> <%= @forma.complexa? ? "Complexa" : "Básica" %></p>
+  <p><strong>Descrição:</strong> <%= @forma.descricao %></p>
   <p><strong>Alcance:</strong> <%= @forma.alcance %></p>
   <p><strong>Tamanho:</strong> <%= @forma.tamanho %></p>
-  <p><strong>Duracao:</strong> <%= @forma.duracao %></p>
+  <p><strong>Duração:</strong> <%= @forma.duracao %></p>
   <p><strong>Custo:</strong> <%= @forma.custo_base %></p>
   <p><strong>Poder:</strong> <%= @forma.poder_base %></p>
 </div>
 
 <% if @forma.upgrades.any? %>
-  <h2>Upgrades disponiveis</h2>
+  <h2>Upgrades disponíveis</h2>
   <ul>
     <% @forma.upgrades.each do |upgrade| %>
       <li><%= link_to upgrade.nome, upgrade %></li>

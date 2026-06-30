@@ -26,7 +26,7 @@ class FormasController < ApplicationController
 
     respond_to do |format|
       if @forma.save
-        format.html { redirect_to @forma, notice: "Forma was successfully created." }
+        format.html { redirect_to @forma, notice: "Forma criada com sucesso." }
         format.json { render :show, status: :created, location: @forma }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -39,7 +39,7 @@ class FormasController < ApplicationController
   def update
     respond_to do |format|
       if @forma.update(forma_params)
-        format.html { redirect_to @forma, notice: "Forma was successfully updated.", status: :see_other }
+        format.html { redirect_to @forma, notice: "Forma atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @forma }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -53,7 +53,7 @@ class FormasController < ApplicationController
     @forma.destroy!
 
     respond_to do |format|
-      format.html { redirect_to formas_path, notice: "Forma was successfully destroyed.", status: :see_other }
+      format.html { redirect_to formas_path, notice: "Forma apagada com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end

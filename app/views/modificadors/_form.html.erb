@@ -16,13 +16,13 @@
   </div>
 
   <div>
-    <%= form.label :descricao, "Descricao:" %>
+    <%= form.label :descricao, "Descrição:" %>
     <%= form.text_area :descricao %>
   </div>
 
   <div>
-    <%= form.label :operacao_custo, "Operacao de Custo:" %>
-    <%= form.select :operacao_custo, [["Soma", "soma"], ["Multiplicacao", "multiplicacao"], ["Divisao", "divisao"], ["Subtracao", "subtracao"]] %>
+    <%= form.label :operacao_custo, "Operação de Custo:" %>
+    <%= form.select :operacao_custo, [["Soma", "soma"], ["Multiplicação", "multiplicacao"], ["Divisão", "divisao"], ["Subtração", "subtracao"]] %>
   </div>
 
   <div>
@@ -31,8 +31,8 @@
   </div>
 
   <div>
-    <%= form.label :operacao_poder, "Operacao de Poder:" %>
-    <%= form.select :operacao_poder, [["Nenhuma", ""], ["Soma", "soma"], ["Multiplicacao", "multiplicacao"], ["Divisao", "divisao"], ["Subtracao", "subtracao"]], include_blank: true %>
+    <%= form.label :operacao_poder, "Operação de Poder:" %>
+    <%= form.select :operacao_poder, [["Nenhuma", ""], ["Soma", "soma"], ["Multiplicação", "multiplicacao"], ["Divisão", "divisao"], ["Subtração", "subtracao"]], include_blank: true %>
   </div>
 
   <div>
@@ -46,24 +46,24 @@
   </div>
 
   <div>
-    <%= form.label :basica, "Carta Basica?" %>
+    <%= form.label :basica, "Carta Básica?" %>
     <%= form.check_box :basica %>
   </div>
 
   <div>
     <%= form.label :disciplina, "Disciplina:" %>
     <%= form.select :disciplina, [
-      ["Nenhuma (Basica)", ""],
+      ["Nenhuma (Básica)", ""],
       ["Superior (Vida/Cura)", "superior"],
       ["Esquerda Superior (Mente)", "esquerda_superior"],
       ["Direita Superior (Melhoria)", "direita_superior"],
-      ["Esquerda Inferior (Contencao)", "esquerda_inferior"],
-      ["Direita Inferior (Destruicao)", "direita_inferior"]
+      ["Esquerda Inferior (Contenção)", "esquerda_inferior"],
+      ["Direita Inferior (Destruição)", "direita_inferior"]
     ], include_blank: false %>
   </div>
 
   <div>
-    <%= form.label :nivel_minimo, "Nivel Minimo na Disciplina:" %>
+    <%= form.label :nivel_minimo, "Nível Mínimo na Disciplina:" %>
     <%= form.number_field :nivel_minimo %>
   </div>
 

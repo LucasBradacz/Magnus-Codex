@@ -26,7 +26,7 @@ class ModificadorsController < ApplicationController
 
     respond_to do |format|
       if @modificador.save
-        format.html { redirect_to @modificador, notice: "Modificador was successfully created." }
+        format.html { redirect_to @modificador, notice: "Modificador criado com sucesso." }
         format.json { render :show, status: :created, location: @modificador }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -39,7 +39,7 @@ class ModificadorsController < ApplicationController
   def update
     respond_to do |format|
       if @modificador.update(modificador_params)
-        format.html { redirect_to @modificador, notice: "Modificador was successfully updated.", status: :see_other }
+        format.html { redirect_to @modificador, notice: "Modificador atualizado com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @modificador }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -53,7 +53,7 @@ class ModificadorsController < ApplicationController
     @modificador.destroy!
 
     respond_to do |format|
-      format.html { redirect_to modificadors_path, notice: "Modificador was successfully destroyed.", status: :see_other }
+      format.html { redirect_to modificadors_path, notice: "Modificador apagado com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end

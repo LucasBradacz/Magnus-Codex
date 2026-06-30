@@ -25,7 +25,7 @@ class PersonagemsController < ApplicationController
 
     respond_to do |format|
       if @personagem.save
-        format.html { redirect_to @personagem, notice: "Personagem was successfully created." }
+        format.html { redirect_to @personagem, notice: "Personagem criado com sucesso." }
         format.json { render :show, status: :created, location: @personagem }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -38,7 +38,7 @@ class PersonagemsController < ApplicationController
   def update
     respond_to do |format|
       if @personagem.update(personagem_params)
-        format.html { redirect_to @personagem, notice: "Personagem was successfully updated.", status: :see_other }
+        format.html { redirect_to @personagem, notice: "Personagem atualizado com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @personagem }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -52,7 +52,7 @@ class PersonagemsController < ApplicationController
     @personagem.destroy!
 
     respond_to do |format|
-      format.html { redirect_to personagems_path, notice: "Personagem was successfully destroyed.", status: :see_other }
+      format.html { redirect_to personagems_path, notice: "Personagem apagado com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end

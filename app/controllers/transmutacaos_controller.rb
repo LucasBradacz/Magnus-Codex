@@ -26,7 +26,7 @@ class TransmutacaosController < ApplicationController
 
     respond_to do |format|
       if @transmutacao.save
-        format.html { redirect_to @transmutacao, notice: "Transmutacao was successfully created." }
+        format.html { redirect_to @transmutacao, notice: "Transmutação criada com sucesso." }
         format.json { render :show, status: :created, location: @transmutacao }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -39,7 +39,7 @@ class TransmutacaosController < ApplicationController
   def update
     respond_to do |format|
       if @transmutacao.update(transmutacao_params)
-        format.html { redirect_to @transmutacao, notice: "Transmutacao was successfully updated.", status: :see_other }
+        format.html { redirect_to @transmutacao, notice: "Transmutação atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @transmutacao }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -53,7 +53,7 @@ class TransmutacaosController < ApplicationController
     @transmutacao.destroy!
 
     respond_to do |format|
-      format.html { redirect_to transmutacaos_path, notice: "Transmutacao was successfully destroyed.", status: :see_other }
+      format.html { redirect_to transmutacaos_path, notice: "Transmutação apagada com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end

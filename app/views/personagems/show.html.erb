@@ -1,23 +1,23 @@
 <h1><%= @personagem.nome %></h1>
 <p><strong>Player:</strong> <%= @personagem.player %></p>
-<p><strong>Nivel:</strong> <%= @personagem.nivel %></p>
+<p><strong>Nível:</strong> <%= @personagem.nivel %></p>
 
 <h2>Atributos</h2>
 <table>
   <tr><td><strong>Agilidade:</strong></td><td><%= @personagem.agilidade %></td></tr>
-  <tr><td><strong>Dominio:</strong></td><td><%= @personagem.dominio %></td></tr>
-  <tr><td><strong>Percepcao:</strong></td><td><%= @personagem.percepcao %></td></tr>
-  <tr><td><strong>Potencia:</strong></td><td><%= @personagem.potencia %></td></tr>
-  <tr><td><strong>Resistencia:</strong></td><td><%= @personagem.resistencia %></td></tr>
+  <tr><td><strong>Domínio:</strong></td><td><%= @personagem.dominio %></td></tr>
+  <tr><td><strong>Percepção:</strong></td><td><%= @personagem.percepcao %></td></tr>
+  <tr><td><strong>Potência:</strong></td><td><%= @personagem.potencia %></td></tr>
+  <tr><td><strong>Resistência:</strong></td><td><%= @personagem.resistencia %></td></tr>
 </table>
 
 <h2>Status</h2>
 <table>
-  <tr><td><strong>Vida Atual:</strong></td><td><%= @personagem.vida_atual %></td><td><strong>Vida Max:</strong></td><td><%= @personagem.vida_max %></td></tr>
-  <tr><td><strong>Mana Atual:</strong></td><td><%= @personagem.mana_atual %></td><td><strong>Mana Max:</strong></td><td><%= @personagem.mana_max %></td></tr>
-  <tr><td><strong>Estabilidade Atual:</strong></td><td><%= @personagem.estabilidade_atual %></td><td><strong>Estabilidade Max:</strong></td><td><%= @personagem.estabilidade_max %></td></tr>
+  <tr><td><strong>Vida Atual:</strong></td><td><%= @personagem.vida_atual %></td><td><strong>Vida Máx.:</strong></td><td><%= @personagem.vida_max %></td></tr>
+  <tr><td><strong>Mana Atual:</strong></td><td><%= @personagem.mana_atual %></td><td><strong>Mana Máx.:</strong></td><td><%= @personagem.mana_max %></td></tr>
+  <tr><td><strong>Estabilidade Atual:</strong></td><td><%= @personagem.estabilidade_atual %></td><td><strong>Estabilidade Máx.:</strong></td><td><%= @personagem.estabilidade_max %></td></tr>
   <tr><td><strong>CA:</strong></td><td><%= @personagem.ca %></td><td><strong>Acerto:</strong></td><td><%= @personagem.acerto %></td></tr>
-  <tr><td><strong>Acoes:</strong></td><td><%= @personagem.acoes %></td><td><strong>Movimento:</strong></td><td><%= @personagem.movimento %></td></tr>
+  <tr><td><strong>Ações:</strong></td><td><%= @personagem.acoes %></td><td><strong>Movimento:</strong></td><td><%= @personagem.movimento %></td></tr>
   <tr><td><strong>Dano Extra:</strong></td><td><%= @personagem.dano_extra %></td><td><strong>CM:</strong></td><td><%= @personagem.cm %></td></tr>
   <tr><td><strong>Truque:</strong></td><td><%= @personagem.truque %></td><td><strong>Dinheiro:</strong></td><td><%= @personagem.dinheiro %></td></tr>
 </table>
@@ -27,8 +27,8 @@
   <tr><td><strong>Superior (Vida/Cura):</strong></td><td><%= @personagem.nivel_superior %></td></tr>
   <tr><td><strong>Esquerda Superior (Mente):</strong></td><td><%= @personagem.nivel_esquerda_superior %></td></tr>
   <tr><td><strong>Direita Superior (Melhoria):</strong></td><td><%= @personagem.nivel_direita_superior %></td></tr>
-  <tr><td><strong>Esquerda Inferior (Contencao):</strong></td><td><%= @personagem.nivel_esquerda_inferior %></td></tr>
-  <tr><td><strong>Direita Inferior (Destruicao):</strong></td><td><%= @personagem.nivel_direita_inferior %></td></tr>
+  <tr><td><strong>Esquerda Inferior (Contenção):</strong></td><td><%= @personagem.nivel_esquerda_inferior %></td></tr>
+  <tr><td><strong>Direita Inferior (Destruição):</strong></td><td><%= @personagem.nivel_direita_inferior %></td></tr>
 </table>
 
 <%= link_to "Editar", edit_personagem_path(@personagem) %>

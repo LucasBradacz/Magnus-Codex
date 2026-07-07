@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_29_220203) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_07_205417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_220203) do
     t.text "descricao"
     t.string "disciplina"
     t.string "duracao"
+    t.string "imagem"
     t.integer "nivel_minimo"
     t.string "nome"
     t.integer "poder_base"
@@ -35,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_220203) do
     t.text "descricao"
     t.string "disciplina"
     t.text "efeito"
+    t.string "imagem"
     t.integer "nivel_minimo"
     t.string "nome"
     t.string "operacao_custo"
@@ -73,6 +75,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_220203) do
     t.string "dado_poder"
     t.text "descricao"
     t.string "disciplina"
+    t.string "imagem"
     t.integer "nivel_minimo"
     t.string "nome"
     t.datetime "updated_at", null: false

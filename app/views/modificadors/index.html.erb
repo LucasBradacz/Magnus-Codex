@@ -1,59 +1,42 @@
 <h1>Modificadores</h1>
 
-<h2>Básicos</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Nome</th>
-    <th>Operação de Custo</th>
-    <th>Valor do Custo</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
+<div>
+  <%= link_to "Novo Modificador", new_modificador_path %>
+</div>
+
+<h2>Basicos</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
   <% @modificadors_basicos.each do |modificador| %>
-    <tr>
-      <td><%= modificador.nome %></td>
-      <td><%= modificador.operacao_custo %></td>
-      <td><%= modificador.valor_custo %></td>
-      <td>
+    <div style="width: 180px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; text-align: center;">
+      <% if modificador.imagem.present? %>
+        <%= image_tag modificador.imagem.gsub('app/assets/images/', ''), style: "width: 100%; border-radius: 4px;" %>
+      <% end %>
+      <p><strong><%= modificador.nome %></strong></p>
+      <p>Custo: <%= modificador.operacao_custo %> <%= modificador.valor_custo %></p>
+      <div>
         <%= link_to "Ver", modificador %>
         <%= link_to "Editar", edit_modificador_path(modificador) %>
-        <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-      </td>
-    </tr>
+        <%= link_to "Deletar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
+</div>
 
 <h2>Disciplinas</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Nome</th>
-    <th>Disciplina</th>
-    <th>Nível Mínimo</th>
-    <th>Operação de Custo</th>
-    <th>Valor do Custo</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
   <% @modificadors_disciplina.each do |modificador| %>
-    <tr>
-      <td><%= modificador.nome %></td>
-      <td><%= modificador.disciplina_nome %></td>
-      <td><%= modificador.nivel_minimo %></td>
-      <td><%= modificador.operacao_custo %></td>
-      <td><%= modificador.valor_custo %></td>
-      <td>
+    <div style="width: 180px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; text-align: center;">
+      <% if modificador.imagem.present? %>
+        <%= image_tag modificador.imagem.gsub('app/assets/images/', ''), style: "width: 100%; border-radius: 4px;" %>
+      <% end %>
+      <p><strong><%= modificador.nome %></strong></p>
+      <p><%= modificador.disciplina_nome %> (Nv <%= modificador.nivel_minimo %>)</p>
+      <p>Custo: <%= modificador.operacao_custo %> <%= modificador.valor_custo %></p>
+      <div>
         <%= link_to "Ver", modificador %>
         <%= link_to "Editar", edit_modificador_path(modificador) %>
-        <%= link_to "Apagar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-      </td>
-    </tr>
+        <%= link_to "Deletar", modificador, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
-
-<%= link_to "Novo Modificador", new_modificador_path %>
+</div>

@@ -1,4 +1,5 @@
 class Transmutacao < ApplicationRecord
+  has_many :encantamentos, dependent: :restrict_with_error
   def disciplina_nome
     case disciplina
     when "superior" then "Superior (Vida/Cura)"

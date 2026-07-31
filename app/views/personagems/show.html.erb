@@ -31,4 +31,19 @@
   <tr><td><strong>Direita Inferior (Destruição):</strong></td><td><%= @personagem.nivel_direita_inferior %></td></tr>
 </table>
 
+<h2>Grimório</h2>
+<% if @personagem.encantamentos.any? %>
+  <ul>
+    <% @personagem.encantamentos.each do |enc| %>
+      <li>
+        <strong><%= enc.nome %></strong> —
+        Custo: <%= enc.custo_final %> | Poder: <%= enc.poder_final %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum encantamento salvo ainda.</p>
+<% end %>
+
+<%= link_to "Novo Encantamento", new_personagem_encantamento_path(@personagem) %>
 <%= link_to "Editar", edit_personagem_path(@personagem) %>

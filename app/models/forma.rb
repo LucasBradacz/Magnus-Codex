@@ -1,4 +1,6 @@
 class Forma < ApplicationRecord
+  has_many :encantamentos, dependent: :restrict_with_error
+
   def basica?
     basica
   end

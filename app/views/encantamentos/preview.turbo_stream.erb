@@ -1,0 +1,9 @@
+<%= turbo_stream.update "montagem_modificadores" do %>
+  <%= render "encantamentos/lista_modificadores",
+             modificador_ids_selecionados: @modificador_ids_selecionados,
+             modificadors: @modificadors, personagem: @personagem %>
+<% end %>
+
+<%= turbo_stream.update "resultado_encantamento" do %>
+  <%= render "encantamentos/resultado", resultado: @resultado %>
+<% end %>

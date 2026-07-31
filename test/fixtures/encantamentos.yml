@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  personagem: one
+  forma: one
+  transmutacao: one
+  custo_final: 1
+  poder_final: MyString
+
+two:
+  nome: MyString
+  personagem: two
+  forma: two
+  transmutacao: two
+  custo_final: 1
+  poder_final: MyString

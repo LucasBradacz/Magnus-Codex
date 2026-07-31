@@ -1,0 +1,16 @@
+<div>
+  <h3>Previa do Encantamento</h3>
+  <% if resultado.nil? %>
+    <p>Selecione uma forma e uma transmutacao para ver o calculo.</p>
+  <% else %>
+    <p><strong>Custo Final:</strong> <%= resultado.custo_final %></p>
+    <p><strong>Poder Final:</strong> <%= resultado.poder_formatado %></p>
+    <% if resultado.divisoes_poder.any? %>
+      <p><strong>Divisoes de poder (apos a rolagem):</strong> <%= resultado.divisoes_poder.join(", ") %></p>
+    <% end %>
+    <% if resultado.efeitos.any? %>
+      <p><strong>Efeitos:</strong></p>
+      <ul><% resultado.efeitos.each { |e| concat(content_tag(:li, e)) } %></ul>
+    <% end %>
+  <% end %>
+</div>

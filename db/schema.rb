@@ -10,9 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_07_205417) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_143152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "encantamento_modificadors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "encantamento_id", null: false
+    t.bigint "modificador_id", null: false
+    t.integer "ordem"
+    t.datetime "updated_at", null: false
+    t.index ["encantamento_id"], name: "index_encantamento_modificadors_on_encantamento_id"
+    t.index ["modificador_id"], name: "index_encantamento_modificadors_on_modificador_id"
+  end
+
+  create_table "encantamentos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "custo_final"
+    t.bigint "forma_id", null: false
+    t.string "nome"
+    t.bigint "personagem_id", null: false
+    t.string "poder_final"
+    t.bigint "transmutacao_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forma_id"], name: "index_encantamentos_on_forma_id"
+    t.index ["personagem_id"], name: "index_encantamentos_on_personagem_id"
+    t.index ["transmutacao_id"], name: "index_encantamentos_on_transmutacao_id"
+  end
 
   create_table "formas", force: :cascade do |t|
     t.string "alcance"
@@ -80,4 +104,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_07_205417) do
     t.string "nome"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "encantamento_modificadors", "encantamentos"
+  add_foreign_key "encantamento_modificadors", "modificadors"
+  add_foreign_key "encantamentos", "formas"
+  add_foreign_key "encantamentos", "personagens"
+  add_foreign_key "encantamentos", "transmutacaos"
 end

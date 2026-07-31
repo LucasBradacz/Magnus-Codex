@@ -1,59 +1,42 @@
-<h1>Transmutações</h1>
+<h1>Transmutacoes</h1>
 
-<h2>Básicas</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Nome</th>
-    <th>Dado de Poder</th>
-    <th>Multiplicador de Custo</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
+<div>
+  <%= link_to "Nova Transmutacao", new_transmutacao_path %>
+</div>
+
+<h2>Basicas</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
   <% @transmutacaos_basicas.each do |transmutacao| %>
-    <tr>
-      <td><%= transmutacao.nome %></td>
-      <td><%= transmutacao.dado_poder %></td>
-      <td><%= transmutacao.custo_multiplicador %></td>
-      <td>
+    <div style="width: 180px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; text-align: center;">
+      <% if transmutacao.imagem.present? %>
+        <%= image_tag transmutacao.imagem.gsub('app/assets/images/', ''), style: "width: 100%; border-radius: 4px;" %>
+      <% end %>
+      <p><strong><%= transmutacao.nome %></strong></p>
+      <p>Custo: x<%= transmutacao.custo_multiplicador %> | Dado: <%= transmutacao.dado_poder %></p>
+      <div>
         <%= link_to "Ver", transmutacao %>
         <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
-        <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-      </td>
-    </tr>
+        <%= link_to "Deletar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
+</div>
 
 <h2>Disciplinas</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Nome</th>
-    <th>Disciplina</th>
-    <th>Nível Mínimo</th>
-    <th>Dado de Poder</th>
-    <th>Multiplicador de Custo</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
   <% @transmutacaos_disciplina.each do |transmutacao| %>
-    <tr>
-      <td><%= transmutacao.nome %></td>
-      <td><%= transmutacao.disciplina_nome %></td>
-      <td><%= transmutacao.nivel_minimo %></td>
-      <td><%= transmutacao.dado_poder %></td>
-      <td><%= transmutacao.custo_multiplicador %></td>
-      <td>
+    <div style="width: 180px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; text-align: center;">
+      <% if transmutacao.imagem.present? %>
+        <%= image_tag transmutacao.imagem.gsub('app/assets/images/', ''), style: "width: 100%; border-radius: 4px;" %>
+      <% end %>
+      <p><strong><%= transmutacao.nome %></strong></p>
+      <p><%= transmutacao.disciplina_nome %> (Nv <%= transmutacao.nivel_minimo %>)</p>
+      <p>Custo: x<%= transmutacao.custo_multiplicador %> | Dado: <%= transmutacao.dado_poder %></p>
+      <div>
         <%= link_to "Ver", transmutacao %>
         <%= link_to "Editar", edit_transmutacao_path(transmutacao) %>
-        <%= link_to "Apagar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-      </td>
-    </tr>
+        <%= link_to "Deletar", transmutacao, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
-
-<%= link_to "Nova Transmutação", new_transmutacao_path %>
+</div>

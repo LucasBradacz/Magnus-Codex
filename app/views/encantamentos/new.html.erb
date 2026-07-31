@@ -1,0 +1,38 @@
+<h1>Novo Encantamento — <%= @personagem.nome %></h1>
+
+<%= form_with model: [@personagem, @encantamento], local: true do |f| %>
+  <div class="campo">
+    <%= f.label :nome, "Nome do Encantamento" %>
+    <%= f.text_field :nome %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :forma_id, "Forma" %>
+    <%= f.collection_select :forma_id, @formas, :id, :nome,
+                            { include_blank: "Selecione uma forma" },
+                            onchange: "this.form.requestSubmit(document.getElementById('btn_recalcular'))" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :transmutacao_id, "Transmutacao" %>
+    <%= f.collection_select :transmutacao_id, @transmutacaos, :id, :nome,
+                            { include_blank: "Selecione uma transmutacao" },
+                            onchange: "this.form.requestSubmit(document.getElementById('btn_recalcular'))" %>
+  </div>
+
+  <%= turbo_frame_tag "montagem_modificadores" do %>
+    <%= render "encantamentos/lista_modificadores",
+               modificador_ids_selecionados: @modificador_ids_selecionados,
+               modificadors: @modificadors, personagem: @personagem %>
+  <% end %>
+
+  <%= turbo_frame_tag "resultado_encantamento" do %>
+    <%= render "encantamentos/resultado", resultado: @resultado %>
+  <% end %>
+
+  <button type="submit" id="btn_recalcular"
+          formaction="<%= preview_personagem_encantamentos_path(@personagem) %>"
+          formmethod="post" formnovalidate style="display:none"></button>
+
+  <%= f.submit "Salvar Encantamento" %>
+<% end %>

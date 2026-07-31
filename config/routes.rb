@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :personagems
+  get "encantamentos/index"
+  get "encantamentos/show"
+  resources :personagems do
+    resources :encantamentos, only: [:new, :create] do
+      collection { post :preview }
+    end
+  end
   get "home/index"
   resources :modificadors
   resources :transmutacaos

@@ -1,6 +1,7 @@
-<h1>Novo Encantamento — <%= @personagem.nome %></h1>
+<h1>Novo Encantamento<%= " — #{@personagem.nome}" if @personagem %></h1>
 
-<%= form_with model: [@personagem, @encantamento], local: true do |f| %>
+<%= form_with model: @encantamento, url: (@personagem ? personagem_encantamentos_path(@personagem)
+                                            : encantamentos_path), local: true do |f| %>
   <div class="campo">
     <%= f.label :nome, "Nome do Encantamento" %>
     <%= f.text_field :nome %>
@@ -30,9 +31,9 @@
     <%= render "encantamentos/resultado", resultado: @resultado %>
   <% end %>
 
-  <button type="submit" id="btn_recalcular"
-          formaction="<%= preview_personagem_encantamentos_path(@personagem) %>"
-          formmethod="post" formnovalidate style="display:none"></button>
+  <button type="submit" id="btn_recalcular" formaction="<%= preview_path_atual %>"
+          formmethod="post"
+          formnovalidate style="display:none"></button>
 
   <%= f.submit "Salvar Encantamento" %>
 <% end %>

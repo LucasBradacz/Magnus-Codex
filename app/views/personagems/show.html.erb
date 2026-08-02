@@ -45,5 +45,35 @@
   <p>Nenhum encantamento salvo ainda.</p>
 <% end %>
 
+<h2>Cartas Conhecidas</h2>
+
+<h3>Formas</h3>
+<% if @personagem.formas.any? %>
+  <ul>
+    <% @personagem.formas.each { |f| concat(content_tag(:li, f.nome)) } %>
+  </ul>
+<% else %>
+  <p>Nenhuma forma conhecida ainda.</p>
+<% end %>
+
+<h3>Transmutacoes</h3>
+<% if @personagem.transmutacaos.any? %>
+  <ul>
+    <% @personagem.transmutacaos.each { |t| concat(content_tag(:li, t.nome)) } %>
+  </ul>
+<% else %>
+  <p>Nenhuma transmutacao conhecida ainda.</p>
+<% end %>
+
+<h3>Modificadores</h3>
+<% if @personagem.modificadors.any? %>
+  <ul>
+    <% @personagem.modificadors.each { |m| concat(content_tag(:li, m.nome)) } %>
+  </ul>
+<% else %>
+  <p>Nenhum modificador conhecido ainda.</p>
+<% end %>
+
 <%= link_to "Novo Encantamento", new_personagem_encantamento_path(@personagem) %>
+<%= link_to "Editar Cartas Conhecidas", edit_personagem_cartas_conhecidas_path(@personagem) %>
 <%= link_to "Editar", edit_personagem_path(@personagem) %>

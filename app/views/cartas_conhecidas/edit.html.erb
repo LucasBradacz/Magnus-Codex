@@ -1,0 +1,38 @@
+<h1>Cartas Conhecidas — <%= @personagem.nome %></h1>
+
+<%= form_with model: @personagem, url: personagem_cartas_conhecidas_path(@personagem), method: :patch, local: true do |f| %>
+
+  <h2>Basicas</h2>
+
+  <h3>Formas</h3>
+  <%= render "grade_cartas", cartas: @formas.select(&:basica?), campo: "forma_ids[]", selecionados: @personagem.forma_ids %>
+
+  <h3>Transmutacoes</h3>
+  <%= render "grade_cartas", cartas: @transmutacaos.select(&:basica?), campo: "transmutacao_ids[]", selecionados: @personagem.transmutacao_ids %>
+
+  <h3>Modificadores</h3>
+  <%= render "grade_cartas", cartas: @modificadors.select(&:basica?), campo: "modificador_ids[]", selecionados: @personagem.modificador_ids %>
+
+  <% disciplinas = {
+    "superior" => "Superior (Vida/Cura)",
+    "esquerda_superior" => "Esquerda Superior (Mente)",
+    "direita_superior" => "Direita Superior (Melhoria)",
+    "esquerda_inferior" => "Esquerda Inferior (Contencao)",
+    "direita_inferior" => "Direita Inferior (Destruicao)"
+  } %>
+
+  <% disciplinas.each do |codigo, titulo| %>
+    <h2><%= titulo %></h2>
+
+    <h3>Formas</h3>
+    <%= render "grade_cartas", cartas: @formas.select { |x| x.disciplina == codigo }, campo: "forma_ids[]", selecionados: @personagem.forma_ids %>
+
+    <h3>Transmutacoes</h3>
+    <%= render "grade_cartas", cartas: @transmutacaos.select { |x| x.disciplina == codigo }, campo: "transmutacao_ids[]", selecionados: @personagem.transmutacao_ids %>
+
+    <h3>Modificadores</h3>
+    <%= render "grade_cartas", cartas: @modificadors.select { |x| x.disciplina == codigo }, campo: "modificador_ids[]", selecionados: @personagem.modificador_ids %>
+  <% end %>
+
+  <%= f.submit "Salvar Cartas Conhecidas" %>
+<% end %>

@@ -23,14 +23,11 @@ class PersonagemsController < ApplicationController
   def create
     @personagem = Personagem.new(personagem_params)
 
-    respond_to do |format|
-      if @personagem.save
-        format.html { redirect_to @personagem, notice: "Personagem criado com sucesso." }
-        format.json { render :show, status: :created, location: @personagem }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @personagem.errors, status: :unprocessable_content }
-      end
+    if @personagem.save
+      redirect_to edit_personagem_cartas_conhecidas_path(@personagem),
+                  notice: "Personagem criado! Agora escolha as cartas conhecidas."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

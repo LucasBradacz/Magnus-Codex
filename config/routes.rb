@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   get "encantamentos/index"
   get "encantamentos/show"
-  resources :personagems do
+
+  resources :personagens, controller: "personagems" do
+    resource :cartas_conhecidas, only: [:edit, :update], controller: "cartas_conhecidas"
     resources :encantamentos, only: [:new, :create] do
       collection { post :preview }
     end
+  end
+
+  resources :encantamentos, only: [:new, :create] do
+    collection { post :preview }
   end
   get "home/index"
   resources :modificadors

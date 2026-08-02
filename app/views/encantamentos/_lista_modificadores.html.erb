@@ -5,13 +5,13 @@
     <p>Nenhum modificador adicionado ainda.</p>
   <% else %>
     <ol>
-      <% modificador_ids_selecionados.each do |mod_id| %>
+      <% modificador_ids_selecionados.each_with_index do |mod_id, index| %>
         <% modificador = Modificador.find(mod_id) %>
         <li>
           <%= hidden_field_tag "modificador_ids[]", mod_id %>
           <%= modificador.nome %>
-          <button type="submit" name="remover_modificador_id" value="<%= mod_id %>"
-                  formaction="<%= preview_personagem_encantamentos_path(personagem) %>"
+          <button type="submit" name="remover_indice" value="<%= index %>"
+                  formaction="<%= preview_path_atual %>"
                   formmethod="post" formnovalidate>Remover</button>
         </li>
       <% end %>
@@ -24,7 +24,7 @@
                    options_from_collection_for_select(modificadors, :id, :nome),
                    include_blank: "Selecione um modificador" %>
     <button type="submit"
-            formaction="<%= preview_personagem_encantamentos_path(personagem) %>"
+            formaction="<%= preview_path_atual %>"
             formmethod="post" formnovalidate>Adicionar</button>
   </div>
 </div>

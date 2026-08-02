@@ -1,0 +1,12 @@
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+  <% cartas.each do |carta| %>
+    <label style="width: 180px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; text-align: center; display: block;">
+      <%= imagem_carta(carta) %>
+      <p><strong><%= carta.nome %></strong></p>
+      <p>
+        <%= check_box_tag campo, carta.id, selecionados.include?(carta.id) %>
+        Conhece esta carta
+      </p>
+    </label>
+  <% end %>
+</div>

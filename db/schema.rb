@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_31_143152) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_01_171450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_143152) do
     t.integer "custo_final"
     t.bigint "forma_id", null: false
     t.string "nome"
-    t.bigint "personagem_id", null: false
+    t.bigint "personagem_id"
     t.string "poder_final"
     t.bigint "transmutacao_id", null: false
     t.datetime "updated_at", null: false
@@ -68,6 +68,36 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_143152) do
     t.datetime "updated_at", null: false
     t.decimal "valor_custo"
     t.decimal "valor_poder"
+  end
+
+  create_table "personagem_formas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "forma_id", null: false
+    t.bigint "personagem_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forma_id"], name: "index_personagem_formas_on_forma_id"
+    t.index ["personagem_id", "forma_id"], name: "index_personagem_formas_on_personagem_id_and_forma_id", unique: true
+    t.index ["personagem_id"], name: "index_personagem_formas_on_personagem_id"
+  end
+
+  create_table "personagem_modificadors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "modificador_id", null: false
+    t.bigint "personagem_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modificador_id"], name: "index_personagem_modificadors_on_modificador_id"
+    t.index ["personagem_id", "modificador_id"], name: "idx_on_personagem_id_modificador_id_36c37eef93", unique: true
+    t.index ["personagem_id"], name: "index_personagem_modificadors_on_personagem_id"
+  end
+
+  create_table "personagem_transmutacaos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "personagem_id", null: false
+    t.bigint "transmutacao_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personagem_id", "transmutacao_id"], name: "idx_on_personagem_id_transmutacao_id_abd2ea044f", unique: true
+    t.index ["personagem_id"], name: "index_personagem_transmutacaos_on_personagem_id"
+    t.index ["transmutacao_id"], name: "index_personagem_transmutacaos_on_transmutacao_id"
   end
 
   create_table "personagens", force: :cascade do |t|
@@ -110,4 +140,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_143152) do
   add_foreign_key "encantamentos", "formas"
   add_foreign_key "encantamentos", "personagens"
   add_foreign_key "encantamentos", "transmutacaos"
+  add_foreign_key "personagem_formas", "formas"
+  add_foreign_key "personagem_formas", "personagens"
+  add_foreign_key "personagem_modificadors", "modificadors"
+  add_foreign_key "personagem_modificadors", "personagens"
+  add_foreign_key "personagem_transmutacaos", "personagens"
+  add_foreign_key "personagem_transmutacaos", "transmutacaos"
 end

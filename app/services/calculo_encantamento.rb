@@ -3,12 +3,8 @@
 # app/services/calculo_encantamento.rb
 class CalculoEncantamento
   Resultado = Struct.new(
-    :custo_final,
-    :qtd_dados,
-    :dado_poder,
-    :poder_formatado,   # ex: "3d8"
-    :divisoes_poder,    # operações de poder que só valem DEPOIS da rolagem
-    :efeitos,
+    :custo_final, :qtd_dados, :dado_poder, :poder_formatado,
+    :divisoes_poder, :efeitos, :alcance, :tamanho, :duracao,
     keyword_init: true
   )
 
@@ -25,11 +21,21 @@ class CalculoEncantamento
       dado_poder: @transmutacao.dado_poder,
       poder_formatado: "#{qtd_dados_final}#{@transmutacao.dado_poder}",
       divisoes_poder: divisoes_poder_pendentes,
-      efeitos: @modificadores.filter_map(&:efeito)
+      efeitos: efeitos_completos,
+      alcance: @forma.alcance,
+      tamanho: @forma.tamanho,
+      duracao: @forma.duracao.presence || "Indeterminado"
     )
   end
 
   private
+
+  def efeitos_completos
+    lista = []
+    lista << @transmutacao.descricao if @transmutacao.descricao.present?
+    lista.concat(@modificadores.filter_map(&:descricao))
+    lista.uniq
+  end
 
   # Custo: parte do custo_base da Forma, aplica cada modificador EM ORDEM,
   # só no final multiplica pelo custo_multiplicador da Transmutação.

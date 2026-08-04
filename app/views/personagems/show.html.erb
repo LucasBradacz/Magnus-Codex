@@ -37,7 +37,11 @@
     <% @personagem.encantamentos.each do |enc| %>
       <li>
         <strong><%= enc.nome %></strong> —
-        Custo: <%= enc.custo_final %> | Poder: <%= enc.poder_final %>
+        Custo: <%= enc.custo_final %> | Poder: <%= enc.poder_final %> |
+        Alcance: <%= enc.alcance %> | Tamanho: <%= enc.tamanho %> | Duracao: <%= enc.duracao %>
+        <% if enc.observacao.present? %>
+          <br><em><%= enc.observacao %></em>
+        <% end %>
       </li>
     <% end %>
   </ul>

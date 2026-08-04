@@ -8,6 +8,11 @@
   </div>
 
   <div class="campo">
+    <%= f.label :observacao, "Descricao / Observacao" %>
+    <%= f.text_area :observacao %>
+  </div>
+
+  <div class="campo">
     <%= f.label :forma_id, "Forma" %>
     <%= f.collection_select :forma_id, @formas, :id, :nome,
                             { include_blank: "Selecione uma forma" },

@@ -49,7 +49,7 @@ class PersonagemsController < ApplicationController
     @personagem.destroy!
 
     respond_to do |format|
-      format.html { redirect_to personagems_path, notice: "Personagem apagado com sucesso.", status: :see_other }
+      format.html { redirect_to personagens_path, notice: "Personagem apagado com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end

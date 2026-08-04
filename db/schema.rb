@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_01_171450) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_04_173340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,12 +25,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_171450) do
   end
 
   create_table "encantamentos", force: :cascade do |t|
+    t.string "alcance"
     t.datetime "created_at", null: false
     t.integer "custo_final"
+    t.string "duracao"
     t.bigint "forma_id", null: false
     t.string "nome"
+    t.text "observacao"
     t.bigint "personagem_id"
     t.string "poder_final"
+    t.string "tamanho"
     t.bigint "transmutacao_id", null: false
     t.datetime "updated_at", null: false
     t.index ["forma_id"], name: "index_encantamentos_on_forma_id"

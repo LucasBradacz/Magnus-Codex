@@ -5,6 +5,9 @@
   <% else %>
     <p><strong>Custo Final:</strong> <%= resultado.custo_final %></p>
     <p><strong>Poder Final:</strong> <%= resultado.poder_formatado %></p>
+    <p><strong>Alcance:</strong> <%= resultado.alcance %></p>
+    <p><strong>Tamanho:</strong> <%= resultado.tamanho %></p>
+    <p><strong>Duracao:</strong> <%= resultado.duracao %></p>
     <% if resultado.divisoes_poder.any? %>
       <p><strong>Divisoes de poder (apos a rolagem):</strong> <%= resultado.divisoes_poder.join(", ") %></p>
     <% end %>

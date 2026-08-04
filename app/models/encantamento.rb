@@ -12,6 +12,13 @@ class Encantamento < ApplicationRecord
     resultado = CalculoEncantamento.new(
       forma: forma, transmutacao: transmutacao, modificadores: modificadors
     ).calcular
-    update!(custo_final: resultado.custo_final, poder_final: resultado.poder_formatado)
+
+    update!(
+      custo_final: resultado.custo_final,
+      poder_final: resultado.poder_formatado,
+      alcance: resultado.alcance,
+      tamanho: resultado.tamanho,
+      duracao: resultado.duracao
+    )
   end
 end

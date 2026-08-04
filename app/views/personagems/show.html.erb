@@ -42,6 +42,8 @@
         <% if enc.observacao.present? %>
           <br><em><%= enc.observacao %></em>
         <% end %>
+        <br>
+        <%= link_to "Editar", edit_personagem_encantamento_path(@personagem, enc) %>
       </li>
     <% end %>
   </ul>
@@ -77,6 +79,42 @@
 <% else %>
   <p>Nenhum modificador conhecido ainda.</p>
 <% end %>
+
+<h2>Inventario</h2>
+<ul>
+  <% @personagem.itens.each do |item| %>
+    <li>
+      <%= item.nome %> (x<%= item.quantidade %>)
+      <% if item.descricao.present? %> — <%= item.descricao %><% end %>
+      <%= link_to "Editar", edit_personagens_item_path(@personagem, item) %>
+      <%= button_to "Remover", personagem_item_path(@personagem, item), method: :delete, form: { data: { turbo_confirm: "Tem certeza?" } } %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "Novo Item", new_personagem_item_path(@personagem) %>
+
+<h2>Ataques</h2>
+<table>
+  <tr><th>Nome</th><th>Acoes</th><th>Municao</th><th>Alcance</th><th>Dano</th></tr>
+  <% @personagem.encantamentos.each do |enc| %>
+    <tr>
+      <td><%= enc.nome %></td>
+      <td>-</td>
+      <td>-</td>
+      <td><%= enc.alcance %></td>
+      <td><%= enc.poder_final %></td>
+    </tr>
+  <% end %>
+  <% @personagem.itens.select(&:arma?).each do |item| %>
+    <tr>
+      <td><%= item.nome %></td>
+      <td><%= item.acoes %></td>
+      <td><%= item.municao %></td>
+      <td><%= item.alcance %></td>
+      <td><%= item.dano %></td>
+    </tr>
+  <% end %>
+</table>
 
 <%= link_to "Novo Encantamento", new_personagem_encantamento_path(@personagem) %>
 <%= link_to "Editar Cartas Conhecidas", edit_personagem_cartas_conhecidas_path(@personagem) %>

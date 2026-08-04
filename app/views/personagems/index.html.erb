@@ -16,6 +16,7 @@
       <td><%= personagem.player %></td>
       <td><%= personagem.nivel %></td>
       <td>
+        <%= link_to "Subir de Nivel", subir_nivel_personagem_path(personagem) %>
         <%= link_to "Ver", personagem %>
         <%= link_to "Editar", edit_personagem_path(personagem) %>
         <%= link_to "Deletar", personagem, data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>

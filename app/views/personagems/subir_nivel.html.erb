@@ -1,0 +1,20 @@
+<h1>Subir de Nivel — <%= @personagem.nome %></h1>
+<p>Nivel atual: <%= @personagem.nivel %></p>
+
+<%= form_with url: subir_nivel_personagem_path(@personagem), method: :patch, local: true do %>
+  <p>Escolha em qual disciplina o personagem evolui:</p>
+  <% [
+       ["superior", "Superior (Vida/Cura)"],
+       ["esquerda_superior", "Esquerda Superior (Mente)"],
+       ["direita_superior", "Direita Superior (Melhoria)"],
+       ["esquerda_inferior", "Esquerda Inferior (Contencao)"],
+       ["direita_inferior", "Direita Inferior (Destruicao)"]
+     ].each do |codigo, titulo| %>
+    <label>
+      <%= radio_button_tag :disciplina, codigo %>
+      <%= titulo %> (nivel atual: <%= @personagem["nivel_#{codigo}"] %>)
+    </label><br>
+  <% end %>
+
+  <%= submit_tag "Confirmar" %>
+<% end %>

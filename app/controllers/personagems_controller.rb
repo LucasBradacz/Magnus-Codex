@@ -54,8 +54,43 @@ class PersonagemsController < ApplicationController
     end
   end
 
+  DISCIPLINAS_ADJACENTES = {
+    "superior" => ["esquerda_superior", "direita_superior"],
+    "esquerda_superior" => ["superior", "esquerda_inferior"],
+    "esquerda_inferior" => ["esquerda_superior", "direita_inferior"],
+    "direita_inferior" => ["esquerda_inferior", "direita_superior"],
+    "direita_superior" => ["direita_inferior", "superior"]
+  }.freeze
+
+  def subir_nivel
+    @personagem = Personagem.find(params[:id])
+    return if request.get? # so renderiza a tela de escolha
+
+    aplicar_subida_de_nivel(@personagem, params[:disciplina])
+    redirect_to personagem_path(@personagem), notice: "#{@personagem.nome} subiu para o nivel #{@personagem.nivel}!"
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+  def aplicar_subida_de_nivel(personagem, disciplina_escolhida)
+    campo = "nivel_#{disciplina_escolhida}"
+    novo_valor = personagem[campo] + 1
+    personagem[campo] = novo_valor
+
+    if novo_valor.even?
+      DISCIPLINAS_ADJACENTES[disciplina_escolhida].each do |adjacente|
+        campo_adjacente = "nivel_#{adjacente}"
+        valor_adjacente = personagem[campo_adjacente]
+        next if valor_adjacente > novo_valor # excecao: adjacente ja maior nao ganha
+
+        personagem[campo_adjacente] = valor_adjacente + 1
+      end
+    end
+
+    personagem.nivel += 1
+    personagem.pontos_atributo_disponiveis += 1
+    personagem.save!
+  end
     def set_personagem
       @personagem = Personagem.find(params.expect(:id))
     end

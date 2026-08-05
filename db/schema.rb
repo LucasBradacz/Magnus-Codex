@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_04_173340) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_04_231724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,6 +56,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_173340) do
     t.integer "poder_base"
     t.string "tamanho"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "itens", force: :cascade do |t|
+    t.integer "acoes"
+    t.string "alcance"
+    t.datetime "created_at", null: false
+    t.string "dano"
+    t.text "descricao"
+    t.string "municao"
+    t.string "nome", null: false
+    t.bigint "personagem_id", null: false
+    t.integer "quantidade", default: 1, null: false
+    t.datetime "updated_at", null: false
+    t.index ["personagem_id"], name: "index_itens_on_personagem_id"
   end
 
   create_table "modificadors", force: :cascade do |t|
@@ -120,6 +134,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_173340) do
     t.string "nome"
     t.integer "percepcao"
     t.string "player"
+    t.integer "pontos_atributo_disponiveis", default: 0, null: false
     t.integer "potencia"
     t.integer "resistencia"
     t.datetime "updated_at", null: false
@@ -144,6 +159,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_173340) do
   add_foreign_key "encantamentos", "formas"
   add_foreign_key "encantamentos", "personagens"
   add_foreign_key "encantamentos", "transmutacaos"
+  add_foreign_key "itens", "personagens"
   add_foreign_key "personagem_formas", "formas"
   add_foreign_key "personagem_formas", "personagens"
   add_foreign_key "personagem_modificadors", "modificadors"

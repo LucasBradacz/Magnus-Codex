@@ -3,13 +3,21 @@ Rails.application.routes.draw do
   get "encantamentos/show"
 
   resources :personagens, controller: "personagems" do
+    resources :itens, except: [:show]
+    member do
+      get :subir_nivel
+      patch :subir_nivel
+    end
+    member { patch :subir_nivel }
     resource :cartas_conhecidas, only: [:edit, :update], controller: "cartas_conhecidas"
-    resources :encantamentos, only: [:new, :create] do
+    resources :encantamentos, only: [:new, :create, :edit, :update] do
+      member { post :preview }
       collection { post :preview }
     end
   end
 
-  resources :encantamentos, only: [:new, :create] do
+  resources :encantamentos, only: [:new, :create, :edit, :update] do
+    member { post :preview }
     collection { post :preview }
   end
   get "home/index"

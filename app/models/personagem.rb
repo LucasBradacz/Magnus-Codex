@@ -9,6 +9,7 @@ class Personagem < ApplicationRecord
   has_many :modificadors, through: :personagem_modificadors
 
   has_many :encantamentos, dependent: :destroy
+  has_many :itens, dependent: :destroy
   def vida_max
     nivel * (20 + 2 * resistencia)
   end

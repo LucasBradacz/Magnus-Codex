@@ -81,7 +81,7 @@ class PersonagemsController < ApplicationController
       DISCIPLINAS_ADJACENTES[disciplina_escolhida].each do |adjacente|
         campo_adjacente = "nivel_#{adjacente}"
         valor_adjacente = personagem[campo_adjacente]
-        next if valor_adjacente > novo_valor # excecao: adjacente ja maior nao ganha
+        next if valor_adjacente.to_i >= novo_valor # excecao: adjacente ja maior nao ganha
 
         personagem[campo_adjacente] = valor_adjacente + 1
       end

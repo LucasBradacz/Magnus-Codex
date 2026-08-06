@@ -31,7 +31,7 @@ class Personagem < ApplicationRecord
   end
 
   def acerto
-    nivel + dominio
+    nivel + (dominio / 2)
   end
 
   def movimento

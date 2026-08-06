@@ -1,4 +1,3 @@
-# app/models/encantamento.rb
 class Encantamento < ApplicationRecord
   belongs_to :personagem, optional: true
   belongs_to :forma

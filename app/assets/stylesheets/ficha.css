@@ -67,6 +67,59 @@
     flex: 1;
 }
 
+.campo-editavel {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 2px;
+    margin: -2px;
+    transition: background 0.15s ease;
+}
+
+.campo-editavel:hover {
+    background: #f0f0f0;
+}
+
+.stat-box.duplo .campo-editavel {
+    flex: 1;
+}
+
+.campo-form {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.campo-input {
+    width: 60px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    font-family: inherit;
+}
+
+.campo-submit {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.botao-incrementar {
+    display: block;
+    margin: 6px auto 0;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.badge-pontos {
+    font-size: 10px;
+    color: #1a7a1a;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
 .pentagrama-wrap {
     display: flex;
     justify-content: center;

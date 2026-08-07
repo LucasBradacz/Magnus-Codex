@@ -1,4 +1,5 @@
 class Personagem < ApplicationRecord
+
   has_many :personagem_formas, dependent: :destroy
   has_many :formas, through: :personagem_formas
 
@@ -10,6 +11,12 @@ class Personagem < ApplicationRecord
 
   has_many :encantamentos, dependent: :destroy
   has_many :itens, dependent: :destroy
+
+  ATRIBUTOS = %w[agilidade dominio percepcao potencia resistencia].freeze
+  CAMPOS_PENTAGRAMA = %w[
+    nivel_superior nivel_esquerda_superior nivel_direita_superior
+    nivel_esquerda_inferior nivel_direita_inferior
+  ].freeze
   def vida_max
     nivel * (20 + 2 * resistencia)
   end

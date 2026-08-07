@@ -6,6 +6,7 @@ class EncantamentosController < ApplicationController
   def new
     @encantamento = novo_encantamento
     @modificador_ids_selecionados = []
+    @transmutacao_ids_selecionados = []
     @resultado = nil
   end
 
@@ -16,6 +17,7 @@ class EncantamentosController < ApplicationController
 
   def edit
     @modificador_ids_selecionados = @encantamento.modificadors.pluck(:id).map(&:to_s)
+    @transmutacao_ids_selecionados = @encantamento.encantamento_transmutacaos.order(:ordem).pluck(:transmutacao_id).map(&:to_s)
     @resultado = resultado_para_encantamento(@encantamento)
   end
 
@@ -28,6 +30,7 @@ class EncantamentosController < ApplicationController
     @encantamento = params[:id] ? Encantamento.find(params[:id]) : novo_encantamento
     @encantamento.assign_attributes(encantamento_params)
     @modificador_ids_selecionados = modificador_ids_atuais
+    @transmutacao_ids_selecionados = transmutacao_ids_atuais
     @resultado = calcular_resultado
     respond_to { |format| format.turbo_stream }
   end
@@ -52,10 +55,17 @@ class EncantamentosController < ApplicationController
       modificador_ids_atuais.each_with_index do |mod_id, index|
         @encantamento.encantamento_modificadors.create!(modificador_id: mod_id, ordem: index)
       end
+
+      @encantamento.encantamento_transmutacaos.destroy_all
+      transmutacao_ids_atuais.each_with_index do |trans_id, index|
+        @encantamento.encantamento_transmutacaos.create!(transmutacao_id: trans_id, ordem: index)
+      end
+
       @encantamento.recalcular!
       redirect_to destino_apos_salvar, notice: notice
     else
       @modificador_ids_selecionados = modificador_ids_atuais
+      @transmutacao_ids_selecionados = transmutacao_ids_atuais
       @resultado = calcular_resultado
       render template, status: :unprocessable_entity
     end
@@ -86,8 +96,9 @@ class EncantamentosController < ApplicationController
     end
   end
 
+  # transmutacao_id sai daqui — nao existe mais como coluna
   def encantamento_params
-    params.require(:encantamento).permit(:nome, :forma_id, :transmutacao_id, :observacao)
+    params.require(:encantamento).permit(:nome, :forma_id, :observacao)
   end
 
   def modificador_ids_atuais
@@ -97,21 +108,33 @@ class EncantamentosController < ApplicationController
     existentes
   end
 
+  def transmutacao_ids_atuais
+    existentes = Array(params[:transmutacao_ids]).reject(&:blank?)
+    existentes += [params[:novo_transmutacao_id]] if params[:novo_transmutacao_id].present?
+    existentes.delete_at(params[:remover_transmutacao_indice].to_i) if params[:remover_transmutacao_indice].present?
+    existentes.first(2)
+  end
+
   def calcular_resultado
     forma = Forma.find_by(id: encantamento_params[:forma_id])
-    transmutacao = Transmutacao.find_by(id: encantamento_params[:transmutacao_id])
-    return nil unless forma && transmutacao
 
-    ids = modificador_ids_atuais
-    por_id = Modificador.where(id: ids).index_by { |m| m.id.to_s }
-    modificadores = ids.map { |id| por_id[id] }.compact
+    trans_ids = transmutacao_ids_atuais
+    return nil if forma.nil? || trans_ids.empty?
 
-    CalculoEncantamento.new(forma: forma, transmutacao: transmutacao, modificadores: modificadores).calcular
+    por_trans_id = Transmutacao.where(id: trans_ids).index_by { |t| t.id.to_s }
+    transmutacaos = trans_ids.map { |id| por_trans_id[id] }.compact
+
+    mod_ids = modificador_ids_atuais
+    por_mod_id = Modificador.where(id: mod_ids).index_by { |m| m.id.to_s }
+    modificadores = mod_ids.map { |id| por_mod_id[id] }.compact
+
+    CalculoEncantamento.new(forma: forma, transmutacaos: transmutacaos, modificadores: modificadores).calcular
   end
 
   def resultado_para_encantamento(encantamento)
     CalculoEncantamento.new(
-      forma: encantamento.forma, transmutacao: encantamento.transmutacao,
+      forma: encantamento.forma,
+      transmutacaos: encantamento.transmutacaos,
       modificadores: encantamento.modificadors
     ).calcular
   end

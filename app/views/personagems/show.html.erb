@@ -4,64 +4,40 @@
   <div class="ficha-cabecalho">
     <h1><%= @personagem.nome %></h1>
     <p class="info-basica">
-      Player: <%= @personagem.player %> &middot; Nivel: <%= @personagem.nivel %>
-      &middot; <%= link_to "Subir de Nivel", subir_nivel_personagem_path(@personagem) %>
+      Player: <%= @personagem.player %> &middot; Nivel: <span id="nivel_display"><%= @personagem.nivel %></span>
+      &middot; <%= turbo_frame_tag "subir_nivel_area" do %>
+        <%= link_to "Subir de Nivel", subir_nivel_personagem_path(@personagem) %>
+      <% end %>
+    </p>
+    <p id="pontos_atributo_display">
+      <% if @personagem.pontos_atributo_disponiveis > 0 %>
+        Pontos de atributo disponiveis: <%= @personagem.pontos_atributo_disponiveis %>
+      <% end %>
     </p>
   </div>
 
   <div class="ficha-secao">
-    <h2>Atributos</h2>
-    <div class="stat-grid">
-      <div class="stat-box"><div class="valor"><%= @personagem.agilidade %></div><div class="label">Agilidade</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.dominio %></div><div class="label">Dominio</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.percepcao %></div><div class="label">Percepcao</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.potencia %></div><div class="label">Potencia</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.resistencia %></div><div class="label">Resistencia</div></div>
+    <div class="ficha-secao">
+      <h2>Atributos</h2>
+      <%= render "personagems/atributos_grid", personagem: @personagem %>
     </div>
   </div>
 
   <div class="ficha-secao">
     <h2>Status</h2>
-    <div class="stat-grid">
-      <div class="stat-box duplo">
-        <div class="metade"><div class="valor"><%= @personagem.vida_atual %></div><div class="label">Vida Atual</div></div>
-        <div class="metade"><div class="valor"><%= @personagem.vida_max %></div><div class="label">Vida Max</div></div>
-      </div>
-      <div class="stat-box duplo">
-        <div class="metade"><div class="valor"><%= @personagem.mana_atual %></div><div class="label">Mana Atual</div></div>
-        <div class="metade"><div class="valor"><%= @personagem.mana_max %></div><div class="label">Mana Max</div></div>
-      </div>
-      <div class="stat-box duplo">
-        <div class="metade"><div class="valor"><%= @personagem.estabilidade_atual %></div><div class="label">Estab. Atual</div></div>
-        <div class="metade"><div class="valor"><%= @personagem.estabilidade_max %></div><div class="label">Estab. Max</div></div>
-      </div>
-      <div class="stat-box"><div class="valor"><%= @personagem.ca %></div><div class="label">CA</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.acoes %></div><div class="label">Acoes</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.acerto %></div><div class="label">Acerto</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.movimento %></div><div class="label">Movimento</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.dano_extra %></div><div class="label">Dano Extra</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.cm %></div><div class="label">CM</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.truque %></div><div class="label">Truque</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.dinheiro %></div><div class="label">Dinheiro</div></div>
-    </div>
+    <%= render "personagems/status_calculados", personagem: @personagem %>
   </div>
 
   <div class="ficha-secao">
     <h2>Pentagrama</h2>
-    <div class="stat-grid">
-      <div class="stat-box"><div class="valor"><%= @personagem.nivel_superior %></div><div class="label">Superior</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.nivel_esquerda_superior %></div><div class="label">Esq. Superior</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.nivel_direita_superior %></div><div class="label">Dir. Superior</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.nivel_esquerda_inferior %></div><div class="label">Esq. Inferior</div></div>
-      <div class="stat-box"><div class="valor"><%= @personagem.nivel_direita_inferior %></div><div class="label">Dir. Inferior</div></div>
-    </div>
+    <%= render "personagems/pentagrama", personagem: @personagem %>
   </div>
 
   <div class="ficha-secao">
     <h2>Grimorio</h2>
     <% if @personagem.encantamentos.any? %>
       <table class="tabela-ficha">
-        <tr><th>Nome</th><th>Custo</th><th>Poder</th><th>Alcance</th><th>Tamanho</th><th>Duracao</th><th></th></tr>
+        <tr><th>Nome</th><th>Custo</th><th>Poder</th><th>Alcance</th><th>Tamanho</th><th>Duracao</th><th>Acoes</th><th></th></tr>
         <% @personagem.encantamentos.each do |enc| %>
           <tr>
             <td><%= enc.nome %><% if enc.observacao.present? %><br><em><%= enc.observacao %></em><% end %></td>
@@ -70,6 +46,7 @@
             <td><%= enc.alcance %></td>
             <td><%= enc.tamanho %></td>
             <td><%= enc.duracao %></td>
+            <td><%= enc.acoes_necessarias %></td>
             <td><%= link_to "Editar", edit_personagem_encantamento_path(@personagem, enc) %></td>
           </tr>
         <% end %>
@@ -109,7 +86,7 @@
     <table class="tabela-ficha">
       <tr><th>Nome</th><th>Acoes</th><th>Municao</th><th>Alcance</th><th>Dano</th></tr>
       <% @personagem.encantamentos.each do |enc| %>
-        <tr><td><%= enc.nome %></td><td>-</td><td>-</td><td><%= enc.alcance %></td><td><%= enc.poder_final %></td></tr>
+        <tr><td><%= enc.nome %></td><td><%= enc.acoes_necessarias %></td><td>-</td><td><%= enc.alcance %></td><td><%= enc.poder_final %></td></tr>
       <% end %>
       <% @personagem.itens.select(&:arma?).each do |item| %>
         <tr><td><%= item.nome %></td><td><%= item.acoes %></td><td><%= item.municao %></td><td><%= item.alcance %></td><td><%= item.dano %></td></tr>

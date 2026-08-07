@@ -19,12 +19,11 @@
                             onchange: "this.form.requestSubmit(document.getElementById('btn_recalcular'))" %>
   </div>
 
-  <div class="campo">
-    <%= f.label :transmutacao_id, "Transmutacao" %>
-    <%= f.collection_select :transmutacao_id, @transmutacaos, :id, :nome,
-                            { include_blank: "Selecione uma transmutacao" },
-                            onchange: "this.form.requestSubmit(document.getElementById('btn_recalcular'))" %>
-  </div>
+  <%= turbo_frame_tag "montagem_transmutacoes" do %>
+    <%= render "encantamentos/lista_transmutacoes",
+               transmutacao_ids_selecionados: @transmutacao_ids_selecionados,
+               transmutacaos: @transmutacaos, personagem: @personagem %>
+  <% end %>
 
   <%= turbo_frame_tag "montagem_modificadores" do %>
     <%= render "encantamentos/lista_modificadores",

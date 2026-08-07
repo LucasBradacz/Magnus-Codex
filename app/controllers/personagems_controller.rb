@@ -1,6 +1,22 @@
 class PersonagemsController < ApplicationController
   before_action :set_personagem, only: %i[ show edit update destroy ]
 
+  CAMPOS_EDITAVEIS = (
+    %w[vida_atual mana_atual estabilidade_atual dinheiro] +
+      Personagem::ATRIBUTOS +
+      Personagem::CAMPOS_PENTAGRAMA
+  ).freeze
+
+  CAMPOS_LIMITADOS_POR_PONTOS = (Personagem::ATRIBUTOS + Personagem::CAMPOS_PENTAGRAMA).freeze
+
+  DISCIPLINAS_ADJACENTES = {
+    "superior" => ["esquerda_superior", "direita_superior"],
+    "esquerda_superior" => ["superior", "esquerda_inferior"],
+    "esquerda_inferior" => ["esquerda_superior", "direita_inferior"],
+    "direita_inferior" => ["esquerda_inferior", "direita_superior"],
+    "direita_superior" => ["direita_inferior", "superior"]
+  }.freeze
+
   # GET /personagems or /personagems.json
   def index
     @personagems = Personagem.all
@@ -54,20 +70,65 @@ class PersonagemsController < ApplicationController
     end
   end
 
-  DISCIPLINAS_ADJACENTES = {
-    "superior" => ["esquerda_superior", "direita_superior"],
-    "esquerda_superior" => ["superior", "esquerda_inferior"],
-    "esquerda_inferior" => ["esquerda_superior", "direita_inferior"],
-    "direita_inferior" => ["esquerda_inferior", "direita_superior"],
-    "direita_superior" => ["direita_inferior", "superior"]
-  }.freeze
-
   def subir_nivel
     @personagem = Personagem.find(params[:id])
     return if request.get? # so renderiza a tela de escolha
 
     aplicar_subida_de_nivel(@personagem, params[:disciplina])
-    redirect_to personagem_path(@personagem), notice: "#{@personagem.nome} subiu para o nivel #{@personagem.nivel}!"
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to personagem_path(@personagem), notice: "#{@personagem.nome} subiu para o nivel #{@personagem.nivel}!" }
+    end
+  end
+
+  def edit_campo
+    @personagem = Personagem.find(params[:id])
+    @campo = params[:campo]
+    raise ActionController::RoutingError, "campo inválido" unless CAMPOS_EDITAVEIS.include?(@campo)
+    @label = label_para(@campo)
+  end
+
+  def update_campo
+    @personagem = Personagem.find(params[:id])
+    @campo = params[:campo]
+    raise ActionController::RoutingError, "campo inválido" unless CAMPOS_EDITAVEIS.include?(@campo)
+
+    novo_valor = params[:valor].to_i
+
+    if CAMPOS_LIMITADOS_POR_PONTOS.include?(@campo)
+      valor_atual = @personagem.public_send(@campo)
+      delta = novo_valor - valor_atual
+
+      if delta.positive? && delta > @personagem.pontos_atributo_disponiveis
+        delta = @personagem.pontos_atributo_disponiveis # aumenta so o quanto sobrar
+        novo_valor = valor_atual + delta
+      end
+
+      @personagem.pontos_atributo_disponiveis -= delta
+    end
+
+    @personagem.update!(@campo => novo_valor, pontos_atributo_disponiveis: @personagem.pontos_atributo_disponiveis)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @personagem }
+    end
+  end
+  def incrementar_atributo
+    @personagem = Personagem.find(params[:id])
+    atributo = params[:atributo]
+    raise ActionController::RoutingError, "atributo inválido" unless ATRIBUTOS_EDITAVEIS.include?(atributo)
+
+    if @personagem.pontos_atributo_disponiveis > 0
+      @personagem.increment!(atributo)
+      @personagem.decrement!(:pontos_atributo_disponiveis)
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @personagem }
+    end
   end
 
   private
@@ -91,11 +152,32 @@ class PersonagemsController < ApplicationController
     personagem.pontos_atributo_disponiveis += 1
     personagem.save!
   end
-    def set_personagem
-      @personagem = Personagem.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
+  def set_personagem
+    @personagem = Personagem.find(params.expect(:id))
+  end
+
+  helper_method :label_para
+  def label_para(campo)
+    {
+      "vida_atual" => "Vida Atual",
+      "mana_atual" => "Mana Atual",
+      "estabilidade_atual" => "Estabilidade Atual",
+      "dinheiro" => "Dinheiro",
+      "agilidade" => "Agilidade",
+      "dominio" => "Dominio",
+      "percepcao" => "Percepcao",
+      "potencia" => "Potencia",
+      "resistencia" => "Resistencia",
+      "nivel_superior" => "Superior",
+      "nivel_esquerda_superior" => "Esq. Superior",
+      "nivel_direita_superior" => "Dir. Superior",
+      "nivel_esquerda_inferior" => "Esq. Inferior",
+      "nivel_direita_inferior" => "Dir. Inferior"
+    }[campo]
+  end
+
+  # Only allow a list of trusted parameters through.
   def personagem_params
     params.require(:personagem).permit(:nome, :player, :nivel, :agilidade, :dominio, :percepcao, :potencia, :resistencia, :vida_atual, :mana_atual, :estabilidade_atual, :dinheiro, :nivel_superior, :nivel_esquerda_superior, :nivel_direita_superior, :nivel_esquerda_inferior, :nivel_direita_inferior)
   end

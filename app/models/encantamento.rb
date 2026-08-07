@@ -1,7 +1,8 @@
 class Encantamento < ApplicationRecord
   belongs_to :personagem, optional: true
   belongs_to :forma
-  belongs_to :transmutacao
+  has_many :encantamento_transmutacaos, -> { order(:ordem) }, dependent: :destroy
+  has_many :transmutacaos, through: :encantamento_transmutacaos
   has_many :encantamento_modificadors, -> { order(:ordem) }, dependent: :destroy
   has_many :modificadors, through: :encantamento_modificadors
 
@@ -9,7 +10,7 @@ class Encantamento < ApplicationRecord
 
   def recalcular!
     resultado = CalculoEncantamento.new(
-      forma: forma, transmutacao: transmutacao, modificadores: modificadors
+      forma: forma, transmutacaos: transmutacaos, modificadores: modificadors
     ).calcular
 
     update!(
@@ -19,5 +20,9 @@ class Encantamento < ApplicationRecord
       tamanho: resultado.tamanho,
       duracao: resultado.duracao
     )
+  end
+
+  def acoes_necessarias
+    1 + transmutacaos.count + encantamento_modificadors.count
   end
 end

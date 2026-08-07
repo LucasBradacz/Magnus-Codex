@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# app/services/calculo_encantamento.rb
 class CalculoEncantamento
   Resultado = Struct.new(
     :custo_final, :qtd_dados, :dado_poder, :poder_formatado,
@@ -8,9 +5,9 @@ class CalculoEncantamento
     keyword_init: true
   )
 
-  def initialize(forma:, transmutacao:, modificadores: [])
+  def initialize(forma:, transmutacaos:, modificadores: [])
     @forma = forma
-    @transmutacao = transmutacao
+    @transmutacaos = Array(transmutacaos)
     @modificadores = modificadores # já na ordem escolhida pelo jogador
   end
 
@@ -18,8 +15,8 @@ class CalculoEncantamento
     Resultado.new(
       custo_final: calcular_custo,
       qtd_dados: qtd_dados_final,
-      dado_poder: @transmutacao.dado_poder,
-      poder_formatado: "#{qtd_dados_final}#{@transmutacao.dado_poder}",
+      dado_poder: transmutacao_principal.dado_poder,
+      poder_formatado: "#{qtd_dados_final}#{transmutacao_principal.dado_poder}",
       divisoes_poder: divisoes_poder_pendentes,
       efeitos: efeitos_completos,
       alcance: @forma.alcance,
@@ -30,26 +27,29 @@ class CalculoEncantamento
 
   private
 
+  # TODO: regras de como MULTIPLAS transmutacoes interagem no calculo ainda
+  # nao foram definidas. Por enquanto, so a primeira da lista conta pra
+  # dado_poder/custo_multiplicador — as demais entram so nos efeitos textuais.
+  def transmutacao_principal
+    @transmutacaos.first
+  end
+
   def efeitos_completos
     lista = []
-    lista << @transmutacao.descricao if @transmutacao.descricao.present?
+    lista.concat(@transmutacaos.filter_map(&:descricao))
     lista.concat(@modificadores.filter_map(&:descricao))
     lista.uniq
   end
 
-  # Custo: parte do custo_base da Forma, aplica cada modificador EM ORDEM,
-  # só no final multiplica pelo custo_multiplicador da Transmutação.
   def calcular_custo
     custo = @modificadores.reduce(@forma.custo_base.to_f) do |acumulado, mod|
       aplicar_operacao(acumulado, mod.operacao_custo, mod.valor_custo)
     end
 
-    custo *= (@transmutacao.custo_multiplicador || 1)
+    custo *= (transmutacao_principal.custo_multiplicador || 1)
     arredondar(custo)
   end
 
-  # Quantidade de dados: só entram operações de poder que NÃO são divisão
-  # (divisão é tratada à parte, depois da rolagem real).
   def qtd_dados_final
     poder = @modificadores.reduce(@forma.poder_base.to_f) do |acumulado, mod|
       next acumulado if mod.operacao_poder.nil?
@@ -77,7 +77,6 @@ class CalculoEncantamento
     end
   end
 
-  # Regra: "todo decimal arredondado para baixo (mínimo 1)"
   def arredondar(valor)
     [valor.floor, 1].max
   end

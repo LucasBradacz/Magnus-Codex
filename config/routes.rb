@@ -3,17 +3,20 @@ Rails.application.routes.draw do
   get "encantamentos/show"
 
   resources :personagens, controller: "personagems" do
-    resources :itens, except: [:show]
     member do
+      get  "campo/:campo/edit", action: :edit_campo,   as: :edit_campo
+      patch "campo/:campo",     action: :update_campo, as: :campo
       get :subir_nivel
       patch :subir_nivel
+      patch "atributo/:atributo", action: :incrementar_atributo, as: :incrementar_atributo
     end
-    member { patch :subir_nivel }
+    # member { patch :subir_nivel }   ← remove essa, é duplicada
     resource :cartas_conhecidas, only: [:edit, :update], controller: "cartas_conhecidas"
     resources :encantamentos, only: [:new, :create, :edit, :update] do
       member { post :preview }
       collection { post :preview }
     end
+    resources :itens, except: [:show]
   end
 
   resources :encantamentos, only: [:new, :create, :edit, :update] do

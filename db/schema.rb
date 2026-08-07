@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_04_231724) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_06_211648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_231724) do
     t.index ["modificador_id"], name: "index_encantamento_modificadors_on_modificador_id"
   end
 
+  create_table "encantamento_transmutacaos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "encantamento_id", null: false
+    t.integer "ordem"
+    t.bigint "transmutacao_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["encantamento_id"], name: "index_encantamento_transmutacaos_on_encantamento_id"
+    t.index ["transmutacao_id"], name: "index_encantamento_transmutacaos_on_transmutacao_id"
+  end
+
   create_table "encantamentos", force: :cascade do |t|
     t.string "alcance"
     t.datetime "created_at", null: false
@@ -35,11 +45,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_231724) do
     t.bigint "personagem_id"
     t.string "poder_final"
     t.string "tamanho"
-    t.bigint "transmutacao_id", null: false
     t.datetime "updated_at", null: false
     t.index ["forma_id"], name: "index_encantamentos_on_forma_id"
     t.index ["personagem_id"], name: "index_encantamentos_on_personagem_id"
-    t.index ["transmutacao_id"], name: "index_encantamentos_on_transmutacao_id"
   end
 
   create_table "formas", force: :cascade do |t|
@@ -156,9 +164,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_231724) do
 
   add_foreign_key "encantamento_modificadors", "encantamentos"
   add_foreign_key "encantamento_modificadors", "modificadors"
+  add_foreign_key "encantamento_transmutacaos", "encantamentos"
+  add_foreign_key "encantamento_transmutacaos", "transmutacaos"
   add_foreign_key "encantamentos", "formas"
   add_foreign_key "encantamentos", "personagens"
-  add_foreign_key "encantamentos", "transmutacaos"
   add_foreign_key "itens", "personagens"
   add_foreign_key "personagem_formas", "formas"
   add_foreign_key "personagem_formas", "personagens"

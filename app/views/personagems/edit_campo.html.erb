@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "campo_#{@campo}" do %>
+  <%= form_with url: campo_personagem_path(@personagem, campo: @campo), method: :patch, class: "campo-form" do |f| %>
+    <%= f.number_field :valor, value: @personagem.public_send(@campo), autofocus: true, step: :any, class: "campo-input" %>
+    <%= f.submit "OK", class: "campo-submit" %>
+  <% end %>
+  <div class="label"><%= @label %></div>
+<% end %>

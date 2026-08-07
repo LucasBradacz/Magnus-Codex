@@ -1,0 +1,29 @@
+<%= turbo_stream.replace "subir_nivel_area" do %>
+  <%= turbo_frame_tag "subir_nivel_area" do %>
+    <%= link_to "Subir de Nivel", subir_nivel_personagem_path(@personagem) %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "nivel_display" do %>
+  <span id="nivel_display"><%= @personagem.nivel %></span>
+<% end %>
+
+<%= turbo_stream.replace "pontos_atributo_display" do %>
+  <p id="pontos_atributo_display">
+    <% if @personagem.pontos_atributo_disponiveis > 0 %>
+      Pontos de atributo disponiveis: <%= @personagem.pontos_atributo_disponiveis %>
+    <% end %>
+  </p>
+<% end %>
+
+<%= turbo_stream.replace "pentagrama" do %>
+  <%= render "personagems/pentagrama", personagem: @personagem %>
+<% end %>
+
+<%= turbo_stream.replace "status_calculados" do %>
+  <%= render "personagems/status_calculados", personagem: @personagem %>
+<% end %>
+
+<%= turbo_stream.replace "atributos_grid" do %>
+  <%= render "personagems/atributos_grid", personagem: @personagem %>
+<% end %>

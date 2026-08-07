@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "campo_#{campo}" do %>
+  <%= link_to edit_campo_personagem_path(personagem, campo: campo), class: "campo-editavel" do %>
+    <div class="valor"><%= personagem.public_send(campo) %></div>
+    <div class="label"><%= label %></div>
+    <% if Personagem::ATRIBUTOS.include?(campo) || Personagem::CAMPOS_PENTAGRAMA.include?(campo) %>
+      <% if personagem.pontos_atributo_disponiveis > 0 %>
+        <div class="badge-pontos">+<%= personagem.pontos_atributo_disponiveis %> disponivel</div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

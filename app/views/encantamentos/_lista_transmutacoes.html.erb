@@ -1,0 +1,34 @@
+<div>
+  <h3>Transmutacoes adicionadas</h3>
+
+  <% if transmutacao_ids_selecionados.empty? %>
+    <p>Nenhuma transmutacao adicionada ainda.</p>
+  <% else %>
+    <ol>
+      <% transmutacao_ids_selecionados.each_with_index do |trans_id, index| %>
+        <% transmutacao = Transmutacao.find(trans_id) %>
+        <li>
+          <%= hidden_field_tag "transmutacao_ids[]", trans_id %>
+          <%= transmutacao.nome %>
+          <button type="submit" name="remover_transmutacao_indice" value="<%= index %>"
+                  formaction="<%= preview_path_atual %>"
+                  formmethod="post" formnovalidate>Remover</button>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+
+  <div class="campo">
+    <%= label_tag :novo_transmutacao_id, "Adicionar Transmutacao" %>
+    <% if transmutacao_ids_selecionados.size >= 2 %>
+      <p><em>Limite de 2 transmutacoes atingido.</em></p>
+    <% else %>
+      <%= select_tag :novo_transmutacao_id,
+                     options_from_collection_for_select(transmutacaos, :id, :nome),
+                     include_blank: "Selecione uma transmutacao" %>
+      <button type="submit"
+              formaction="<%= preview_path_atual %>"
+              formmethod="post" formnovalidate>Adicionar</button>
+    <% end %>
+  </div>
+</div>
